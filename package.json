@@ -1,12 +1,12 @@
 {
-	"name": "electron-jqueryui-quick-start",
+	"name": "RiotConfig",
 	"version": "0.1.0",
-	"description": "A minimal Electron application with jQuery UI integration",
+	"description": "Riot UI to generate configuration XML",
 	"main": "main.js",
 	"scripts": {
 		"start": "electron ."
 	},
-	"author": "Satya Choudhury",
+	"author": "Sriram Viswanathan",
 	"license": "MIT",
 	"devDependencies": {
 		"electron": "~1.6.2"
