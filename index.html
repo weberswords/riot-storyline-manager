@@ -1,131 +1,137 @@
 <!doctype html>
 <html lang="us">
 <head>
-	<meta charset="utf-8">
-	<title>RIOT Xml Config App</title>
-	<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
-	<link href="css/slider.css" rel="stylesheet">
-	<link href="css/accordion.css" rel="stylesheet">
-	<style>
-	body{
-		font-family: "Trebuchet MS", sans-serif;
-		margin: 50px;
-	}
-	.demoHeaders {
-		margin-top: 2em;
-	}
-	select {
-		margin-top: 1em;
-		width: 200px;
-	}
-	label {
-		margin-top: 1em;
-		display: block;
-	}
+    <meta charset="utf-8">
+    <title>RIOT Xml Config App</title>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link href="css/slider.css" rel="stylesheet">
+    <link href="css/accordion.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Trebuchet MS", sans-serif;
+            margin: 50px;
+        }
 
-	#controlgroup {
-		width: 100%;
-		height: 100%;
-	}
-	</style>
+        .demoHeaders {
+            margin-top: 2em;
+        }
+
+        select {
+            margin-top: 1em;
+            width: 200px;
+        }
+
+        label {
+            margin-top: 1em;
+            display: block;
+        }
+
+        #controlgroup {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 
 <form id="exportConfiguration">
-	<div id="controlgroup">
-		<div id="videoAccordion">
-			<h3>Video</h3>
-			<video id="myVideo" width="600" height="200" preload="none" src="film.m4v" type="video/m4v" controls>
-			</video>
-		</div>
-		<fieldset>
-			<div id="levelsAccordion">
-				<h3>Level1</h3>
+    <div id="controlgroup">
+        <div id="videoAccordion">
+            <h3>Video</h3>
+            <video id="myVideo" width="600" height="200" preload="none" src="film.m4v" type="video/m4v" controls>
+            </video>
+        </div>
+        <fieldset>
+            <div id="levelsAccordion">
+                <h3>Level1</h3>
                 <div>
-    				<div class="timer-range">
-					<label for="tslvl1">Timeline
-						<div>
-							<span id="tslvl1From"></span> - <span id="tslvl1To"></span>
-						</div>
-					</label>
-					<div id="tslvl1"></div>
-				</div>
-				    <div id="lvl1accordion" class="accordian">
-					<h3>Branch1<h3>
-					<div>
-						<div class="timer-range">
-							<label for="ts11">Timeline
-								<div>
-									<span id="ts11From"></span> - <span id="ts11To"></span>
-								</div>
-							</label>
-							<div id="ts11"></div>
-						</div>
-						<label for="em11">Emotion</label>
-						<select id="em11">
-							<option selected>Calm</option>
-							<option>Fear</option>
-							<option>Anger</option>
-						</select>
-						<label for="o11">Outcome</label>
-						<select id="o11">
-							<option selected>Level2</option>
-							<option>Level3</option>
-							<option>Level4</option>
-							<option>End</option>
-						</select>
-					</div>
-					<h3>Branch2<h3>
-					<div>
-						<div class="timer-range">
-							<label for="ts12">Timeline
-								<div>
-									<span id="ts12From"></span> - <span id="ts12To"></span>
-								</div>
-							</label>
-							<div id="ts12"></div>
-						</div>
-						<label for="em12">Emotion</label>
-						<select id="em12">
-							<option selected>Calm</option>
-							<option>Fear</option>
-							<option>Anger</option>
-						</select>
-						<label for="o12">Outcome</label>
-						<select id="o12">
-							<option selected>Level2</option>
-							<option>Level3</option>
-							<option>Level4</option>
-							<option>End</option>
-						</select>
-					</div>
-					<h3>Branch3<h3>
-						<div>
-							<div class="timer-range">
-								<label for="ts13">Timeline
-									<div>
-										<span id="ts13From"></span> - <span id="ts13To"></span>
-									</div>
-								</label>
-								<div id="ts13"></div>
-							</div>
-							<label for="em13">Emotion</label>
-							<select id="em13">
-								<option selected>Calm</option>
-								<option>Fear</option>
-								<option>Anger</option>
-							</select>
-							<label for="o13">Outcome</label>
-							<select id="o13">
-								<option selected>Level2</option>
-								<option>Level3</option>
-								<option>Level4</option>
-								<option>End</option>
-							</select>
-						</div>
-				</div>
+                    <div class="timer-range">
+                        <label for="tslvl1">Timeline
+                            <div>
+                                <span id="tslvl1From"></span> - <span id="tslvl1To"></span>
+                            </div>
+                        </label>
+                        <div id="tslvl1"></div>
+                    </div>
+                    <div id="lvl1accordion" class="accordian">
+                        <h3>Branch1
+                            <h3>
+                                <div>
+                                    <div class="timer-range">
+                                        <label for="ts11">Timeline
+                                            <div>
+                                                <span id="ts11From"></span> - <span id="ts11To"></span>
+                                            </div>
+                                        </label>
+                                        <div id="ts11"></div>
+                                    </div>
+                                    <label for="em11">Emotion</label>
+                                    <select id="em11">
+                                        <option selected>Calm</option>
+                                        <option>Fear</option>
+                                        <option>Anger</option>
+                                    </select>
+                                    <label for="o11">Outcome</label>
+                                    <select id="o11">
+                                        <option selected>Level2</option>
+                                        <option>Level3</option>
+                                        <option>Level4</option>
+                                        <option>End</option>
+                                    </select>
+                                </div>
+                                <h3>Branch2
+                                    <h3>
+                                        <div>
+                                            <div class="timer-range">
+                                                <label for="ts12">Timeline
+                                                    <div>
+                                                        <span id="ts12From"></span> - <span id="ts12To"></span>
+                                                    </div>
+                                                </label>
+                                                <div id="ts12"></div>
+                                            </div>
+                                            <label for="em12">Emotion</label>
+                                            <select id="em12">
+                                                <option selected>Calm</option>
+                                                <option>Fear</option>
+                                                <option>Anger</option>
+                                            </select>
+                                            <label for="o12">Outcome</label>
+                                            <select id="o12">
+                                                <option selected>Level2</option>
+                                                <option>Level3</option>
+                                                <option>Level4</option>
+                                                <option>End</option>
+                                            </select>
+                                        </div>
+                                        <h3>Branch3
+                                            <h3>
+                                                <div>
+                                                    <div class="timer-range">
+                                                        <label for="ts13">Timeline
+                                                            <div>
+                                                                <span id="ts13From"></span> - <span id="ts13To"></span>
+                                                            </div>
+                                                        </label>
+                                                        <div id="ts13"></div>
+                                                    </div>
+                                                    <label for="em13">Emotion</label>
+                                                    <select id="em13">
+                                                        <option selected>Calm</option>
+                                                        <option>Fear</option>
+                                                        <option>Anger</option>
+                                                    </select>
+                                                    <label for="o13">Outcome</label>
+                                                    <select id="o13">
+                                                        <option selected>Level2</option>
+                                                        <option>Level3</option>
+                                                        <option>Level4</option>
+                                                        <option>End</option>
+                                                    </select>
+                                                </div>
+                    </div>
                 </div>
-				<h3>Level2</h3>
+                <h3>Level2</h3>
                 <div>
                     <div class="timer-range">
                         <label for="tslvl2">Timeline
@@ -136,78 +142,81 @@
                         <div id="tslvl2"></div>
                     </div>
                     <div id="lvl2accordion" class="accordian">
-                        <h3>Branch1<h3>
-                        <div>
-                            <div class="timer-range">
-                                <label for="ts21">Timeline
-                                    <div>
-                                        <span id="ts21From"></span> - <span id="ts21To"></span>
+                        <h3>Branch1
+                            <h3>
+                                <div>
+                                    <div class="timer-range">
+                                        <label for="ts21">Timeline
+                                            <div>
+                                                <span id="ts21From"></span> - <span id="ts21To"></span>
+                                            </div>
+                                        </label>
+                                        <div id="ts21"></div>
                                     </div>
-                                </label>
-                                <div id="ts21"></div>
-                            </div>
-                            <label for="em21">Emotion</label>
-                            <select id="em21">
-                                <option selected>Calm</option>
-                                <option>Fear</option>
-                                <option>Anger</option>
-                            </select>
-                            <label for="o21">Outcome</label>
-                            <select id="o21">
-                                <option selected>Level3</option>
-                                <option>Level4</option>
-                                <option>End</option>
-                            </select>
-                        </div>
-                        <h3>Branch2<h3>
-                        <div>
-                            <div class="timer-range">
-                                <label for="ts22">Timeline
-                                    <div>
-                                        <span id="ts22From"></span> - <span id="ts22To"></span>
-                                    </div>
-                                </label>
-                                <div id="ts22"></div>
-                            </div>
-                            <label for="em22">Emotion</label>
-                            <select id="em22">
-                                <option selected>Calm</option>
-                                <option>Fear</option>
-                                <option>Anger</option>
-                            </select>
-                            <label for="o22">Outcome</label>
-                            <select id="o22">
-                                <option selected>Level3</option>
-                                <option>Level4</option>
-                                <option>End</option>
-                            </select>
-                        </div>
-                        <h3>Branch3<h3>
-                            <div>
-                                <div class="timer-range">
-                                    <label for="ts23">Timeline
-                                        <div>
-                                            <span id="ts23From"></span> - <span id="ts23To"></span>
-                                        </div>
-                                    </label>
-                                    <div id="ts23"></div>
+                                    <label for="em21">Emotion</label>
+                                    <select id="em21">
+                                        <option selected>Calm</option>
+                                        <option>Fear</option>
+                                        <option>Anger</option>
+                                    </select>
+                                    <label for="o21">Outcome</label>
+                                    <select id="o21">
+                                        <option selected>Level3</option>
+                                        <option>Level4</option>
+                                        <option>End</option>
+                                    </select>
                                 </div>
-                                <label for="em23">Emotion</label>
-                                <select id="em23">
-                                    <option selected>Calm</option>
-                                    <option>Fear</option>
-                                    <option>Anger</option>
-                                </select>
-                                <label for="o23">Outcome</label>
-                                <select id="o23">
-                                    <option selected>Level3</option>
-                                    <option>Level4</option>
-                                    <option>End</option>
-                                </select>
-                            </div>
+                                <h3>Branch2
+                                    <h3>
+                                        <div>
+                                            <div class="timer-range">
+                                                <label for="ts22">Timeline
+                                                    <div>
+                                                        <span id="ts22From"></span> - <span id="ts22To"></span>
+                                                    </div>
+                                                </label>
+                                                <div id="ts22"></div>
+                                            </div>
+                                            <label for="em22">Emotion</label>
+                                            <select id="em22">
+                                                <option selected>Calm</option>
+                                                <option>Fear</option>
+                                                <option>Anger</option>
+                                            </select>
+                                            <label for="o22">Outcome</label>
+                                            <select id="o22">
+                                                <option selected>Level3</option>
+                                                <option>Level4</option>
+                                                <option>End</option>
+                                            </select>
+                                        </div>
+                                        <h3>Branch3
+                                            <h3>
+                                                <div>
+                                                    <div class="timer-range">
+                                                        <label for="ts23">Timeline
+                                                            <div>
+                                                                <span id="ts23From"></span> - <span id="ts23To"></span>
+                                                            </div>
+                                                        </label>
+                                                        <div id="ts23"></div>
+                                                    </div>
+                                                    <label for="em23">Emotion</label>
+                                                    <select id="em23">
+                                                        <option selected>Calm</option>
+                                                        <option>Fear</option>
+                                                        <option>Anger</option>
+                                                    </select>
+                                                    <label for="o23">Outcome</label>
+                                                    <select id="o23">
+                                                        <option selected>Level3</option>
+                                                        <option>Level4</option>
+                                                        <option>End</option>
+                                                    </select>
+                                                </div>
                     </div>
                 </div>
-				<h3>Level3</h3>
+                <h3>Level3</h3>
                 <div>
                     <div class="timer-range">
                         <label for="tslvl3">Timeline
@@ -218,53 +227,55 @@
                         <div id="tslvl3"></div>
                     </div>
                     <div id="lvl3accordion" class="accordian">
-                        <h3>Branch1<h3>
-                        <div>
-                            <div class="timer-range">
-                                <label for="ts31">Timeline
-                                    <div>
-                                        <span id="ts31From"></span> - <span id="ts31To"></span>
+                        <h3>Branch1
+                            <h3>
+                                <div>
+                                    <div class="timer-range">
+                                        <label for="ts31">Timeline
+                                            <div>
+                                                <span id="ts31From"></span> - <span id="ts31To"></span>
+                                            </div>
+                                        </label>
+                                        <div id="ts31"></div>
                                     </div>
-                                </label>
-                                <div id="ts31"></div>
-                            </div>
-                            <label for="em31">Emotion</label>
-                            <select id="em31">
-                                <option selected>Calm</option>
-                                <option>Fear</option>
-                                <option>Anger</option>
-                            </select>
-                            <label for="o31">Outcome</label>
-                            <select id="o31">
-                                <option selected>Level4</option>
-                                <option>End</option>
-                            </select>
-                        </div>
-                        <h3>Branch2<h3>
-                        <div>
-                            <div class="timer-range">
-                                <label for="ts32">Timeline
-                                    <div>
-                                        <span id="ts32From"></span> - <span id="ts32To"></span>
-                                    </div>
-                                </label>
-                                <div id="ts32"></div>
-                            </div>
-                            <label for="em32">Emotion</label>
-                            <select id="em32">
-                                <option selected>Calm</option>
-                                <option>Fear</option>
-                                <option>Anger</option>
-                            </select>
-                            <label for="o32">Outcome</label>
-                            <select id="o32">
-                                <option selected>Level4</option>
-                                <option>End</option>
-                            </select>
-                        </div>
+                                    <label for="em31">Emotion</label>
+                                    <select id="em31">
+                                        <option selected>Calm</option>
+                                        <option>Fear</option>
+                                        <option>Anger</option>
+                                    </select>
+                                    <label for="o31">Outcome</label>
+                                    <select id="o31">
+                                        <option selected>Level4</option>
+                                        <option>End</option>
+                                    </select>
+                                </div>
+                                <h3>Branch2
+                                    <h3>
+                                        <div>
+                                            <div class="timer-range">
+                                                <label for="ts32">Timeline
+                                                    <div>
+                                                        <span id="ts32From"></span> - <span id="ts32To"></span>
+                                                    </div>
+                                                </label>
+                                                <div id="ts32"></div>
+                                            </div>
+                                            <label for="em32">Emotion</label>
+                                            <select id="em32">
+                                                <option selected>Calm</option>
+                                                <option>Fear</option>
+                                                <option>Anger</option>
+                                            </select>
+                                            <label for="o32">Outcome</label>
+                                            <select id="o32">
+                                                <option selected>Level4</option>
+                                                <option>End</option>
+                                            </select>
+                                        </div>
                     </div>
                 </div>
-				<h3>Level4</h3>
+                <h3>Level4</h3>
                 <div>
                     <div class="timer-range">
                         <label for="tslvl4">Timeline
@@ -275,101 +286,105 @@
                         <div id="tslvl4"></div>
                     </div>
                     <div id="lvl4accordion" class="accordian">
-                        <h3>Branch1<h3>
-                        <div>
-                            <div class="timer-range">
-                                <label for="ts41">Timeline
-                                    <div>
-                                        <span id="ts41From"></span> - <span id="ts41To"></span>
+                        <h3>Branch1
+                            <h3>
+                                <div>
+                                    <div class="timer-range">
+                                        <label for="ts41">Timeline
+                                            <div>
+                                                <span id="ts41From"></span> - <span id="ts41To"></span>
+                                            </div>
+                                        </label>
+                                        <div id="ts41"></div>
                                     </div>
-                                </label>
-                                <div id="ts41"></div>
-                            </div>
-                            <label for="em41">Emotion</label>
-                            <select id="em41" disabled>
-                                <option selected>Calm</option>
-                            </select>
-                            <label for="o41">Outcome</label>
-                            <select id="o41" disabled>
-                                <option>End</option>
-                            </select>
-                        </div>
-                        <h3>Branch2<h3>
-                        <div>
-                            <div class="timer-range">
-                                <label for="ts42">Timeline
-                                    <div>
-                                        <span id="ts42From"></span> - <span id="ts42To"></span>
-                                    </div>
-                                </label>
-                                <div id="ts42"></div>
-                            </div>
-                            <label for="em42">Emotion</label>
-                            <select id="em42" disabled>
-                                <option selected>Fear</option>
-                            </select>
-                            <label for="o42">Outcome</label>
-                            <select id="o42" disabled>
-                                <option selected>End</option>
-                            </select>
-                        </div>
-                        <h3>Branch3<h3>
-                            <div>
-                                <div class="timer-range">
-                                    <label for="ts43">Timeline
-                                        <div>
-                                            <span id="ts43From"></span> - <span id="ts43To"></span>
-                                        </div>
-                                    </label>
-                                    <div id="ts43"></div>
+                                    <label for="em41">Emotion</label>
+                                    <select id="em41" disabled>
+                                        <option selected>Calm</option>
+                                    </select>
+                                    <label for="o41">Outcome</label>
+                                    <select id="o41" disabled>
+                                        <option>End</option>
+                                    </select>
                                 </div>
-                                <label for="em43">Emotion</label>
-                                <select id="em43" disabled>
-                                    <option selected>Anger</option>
-                                </select>
-                                <label for="o43">Outcome</label>
-                                <select id="o43" disabled>
-                                    <option selected>End</option>
-                                </select>
-                            </div>
-                        </div>
+                                <h3>Branch2
+                                    <h3>
+                                        <div>
+                                            <div class="timer-range">
+                                                <label for="ts42">Timeline
+                                                    <div>
+                                                        <span id="ts42From"></span> - <span id="ts42To"></span>
+                                                    </div>
+                                                </label>
+                                                <div id="ts42"></div>
+                                            </div>
+                                            <label for="em42">Emotion</label>
+                                            <select id="em42" disabled>
+                                                <option selected>Fear</option>
+                                            </select>
+                                            <label for="o42">Outcome</label>
+                                            <select id="o42" disabled>
+                                                <option selected>End</option>
+                                            </select>
+                                        </div>
+                                        <h3>Branch3
+                                            <h3>
+                                                <div>
+                                                    <div class="timer-range">
+                                                        <label for="ts43">Timeline
+                                                            <div>
+                                                                <span id="ts43From"></span> - <span id="ts43To"></span>
+                                                            </div>
+                                                        </label>
+                                                        <div id="ts43"></div>
+                                                    </div>
+                                                    <label for="em43">Emotion</label>
+                                                    <select id="em43" disabled>
+                                                        <option selected>Anger</option>
+                                                    </select>
+                                                    <label for="o43">Outcome</label>
+                                                    <select id="o43" disabled>
+                                                        <option selected>End</option>
+                                                    </select>
+                                                </div>
+                    </div>
                 </div>
-			</div>
-			<button onClick="exportConfiguration()">Export Configuration</button>
-		</fieldset>
-	</div>
+            </div>
+            <button onClick="exportConfiguration()">Export Configuration</button>
+        </fieldset>
+    </div>
 </form>
 
 
 <script>window.$ = window.jQuery = require('jquery');</script>
 <script>var o2x = require('object-to-xml');</script>
 <script>var FileSaver = require('file-saver');</script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 <script>
-(function( $, undefined ) {
+  (function ($, undefined) {
 
 
 // Some classes we work with throughout the accordion
 // customization.  Define them here instead of in the
 // widget since they're "static".
-var headerActive = "ui-accordion-header-active" +
-                   " ui-state-active",
-    panelActive = "ui-accordion-content-active";
+    var headerActive = "ui-accordion-header-active" +
+        " ui-state-active",
+        panelActive = "ui-accordion-content-active";
 
-$.widget( "ab.accordion", $.ui.accordion, {
+    $.widget("ab.accordion", $.ui.accordion, {
 
-    // Called when a section is expanding or collapsing.
-    _eventHandler: function( e ) {
+      // Called when a section is expanding or collapsing.
+      _eventHandler: function (e) {
 
         // Not expandable, do nothing.
-        if ( !this.options.expandable ) {
-            return this._super( e );
+        if (!this.options.expandable) {
+          return this._super(e);
         }
 
-        var $header  = $( event.currentTarget ),
-            $panel   = $header.next(),
-            expanded = $panel.hasClass( panelActive ),
-            icons    = this.options.icons;
+        var $header = $(event.currentTarget),
+            $panel = $header.next(),
+            expanded = $panel.hasClass(panelActive),
+            icons = this.options.icons;
 
         e.preventDefault();
 
@@ -378,298 +393,310 @@ $.widget( "ab.accordion", $.ui.accordion, {
 
         // The section is already expanded, so we're
         // collapsing.
-        if ( expanded ) {
+        if (expanded) {
 
-            // There is no new panel when collapsing.  The old
-            // panel is the one we're collapsing.
-            this._toggle({
-                newPanel: $(),
-                oldPanel: $panel
-            });
+          // There is no new panel when collapsing.  The old
+          // panel is the one we're collapsing.
+          this._toggle({
+            newPanel: $(),
+            oldPanel: $panel
+          });
 
-            $header.removeClass( headerActive );
+          $header.removeClass(headerActive);
 
-            if ( icons ) {
-                $header.children( ".ui-accordion-header-icon" )
-                       .removeClass( icons.activeHeader )
-                       .addClass( icons.header );
-            }
+          if (icons) {
+            $header.children(".ui-accordion-header-icon")
+                .removeClass(icons.activeHeader)
+                .addClass(icons.header);
+          }
 
-        // The section is collapsed.  We're expanding.
+          // The section is collapsed.  We're expanding.
         } else {
 
-            this.headers.not( $header )
-                        .removeClass( headerActive );
+          this.headers.not($header)
+              .removeClass(headerActive);
 
-            // The new panel is the one we're expanding.
-            // There is on old panel since expanding a
-            // section no longer forces the last section
-            // to collapse.
-            this._toggle({
-                newPanel: $panel,
-                oldPanel: $()
-            });
+          // The new panel is the one we're expanding.
+          // There is on old panel since expanding a
+          // section no longer forces the last section
+          // to collapse.
+          this._toggle({
+            newPanel: $panel,
+            oldPanel: $()
+          });
 
-            $header.removeClass( "ui-corner-all" )
-                   .addClass( headerActive + " ui-corner-top" );
+          $header.removeClass("ui-corner-all")
+              .addClass(headerActive + " ui-corner-top");
 
-            if ( icons ) {
-                $header.children( ".ui-accordion-header-icon" )
-                       .removeClass( icons.header )
-                       .addClass( icons.activeHeader );
-            }
+          if (icons) {
+            $header.children(".ui-accordion-header-icon")
+                .removeClass(icons.header)
+                .addClass(icons.activeHeader);
+          }
 
-            $panel.addClass( panelActive );
+          $panel.addClass(panelActive);
 
         }
 
-    },
+      },
 
-});
+    });
 
-})( jQuery );
+  })(jQuery);
 </script>
 
 <script>
 
-const accordianConfig = {
+  const accordianConfig = {
     collapsible: true,
     autoHeight: false,
-		heightStyle: 'content',
-		expandable: true
-};
+    heightStyle: 'content',
+    expandable: true
+  };
 
-$( "#videoAccordion").accordion(accordianConfig);
-$( "#configurationAccordion" ).accordion(accordianConfig);
-$( "#levelsAccordion").accordion(accordianConfig);
-$( "#lvl1accordion" ).accordion(accordianConfig);
-$( "#lvl2accordion" ).accordion(accordianConfig);
-$( "#lvl3accordion" ).accordion(accordianConfig);
-$( "#lvl4accordion" ).accordion(accordianConfig);
+  $("#videoAccordion").accordion(accordianConfig);
+  $("#configurationAccordion").accordion(accordianConfig);
+  $("#levelsAccordion").accordion(accordianConfig);
+  $("#lvl1accordion").accordion(accordianConfig);
+  $("#lvl2accordion").accordion(accordianConfig);
+  $("#lvl3accordion").accordion(accordianConfig);
+  $("#lvl4accordion").accordion(accordianConfig);
 
-$( "#controlgroup" ).controlgroup();
+  $("#controlgroup").controlgroup();
 
-function exportConfiguration() {
-	var obj = {
-	  '?xml version=\"1.0\" encoding=\"iso-8859-1\"?' : null,
-	  request : {
-	    '#' : {
-	      config : {
-	        '#' : {
-						media : {
-							video: "Resources/media/film.m4v",
-							audio: "Resources/media/RIOT_II_binarual_master_03.wav"
-						},
-						workflow: {
-							level1: {
-								'@' : {
-									id : 'level1'
-								},
-								'#' : {
-									start: $('#tslvl1From').html(),
-									end: $('#tslvl1To').html(),
-									branch1: {
-										'@' : {
-											id : 'branch1'
-										},
-										'#' : {
-											emotion: $('#em11').val(),
-											start: $('#ts11From').html(),
-											end: $('#ts11To').html(),
-											outcome: $('#o11').val()
-										}
-									},
-									branch2: {
-										'@' : {
-											id : 'branch2'
-										},
-										'#' : {
-											emotion: $('#em12').val(),
-											start: $('#ts12From').html(),
-											end: $('#ts12To').html(),
-											outcome: $('#o12').val()
-										}
-									},
-									branch3: {
-										'@' : {
-											id : 'branch3'
-										},
-										'#' : {
-											emotion: $('#em13').val(),
-											start: $('#ts13From').html(),
-											end: $('#ts13To').html(),
-											outcome: $('#o13').val()
-										}
-									}
-								}
-							},
-							level2: {
-								'@' : {
-									id : 'level2'
-								},
-								'#' : {
-									start: $('#tslvl2From').html(),
-									end: $('#tslvl2To').html(),
-									branch1: {
-										'@' : {
-											id : 'branch1'
-										},
-										'#' : {
-											emotion: $('#em21').val(),
-											start: $('#ts21From').html(),
-											end: $('#ts21To').html(),
-											outcome: $('#o21').val()
-										}
-									},
-									branch2: {
-										'@' : {
-											id : 'branch2'
-										},
-										'#' : {
-											emotion: $('#em22').val(),
-											start: $('#ts22From').html(),
-											end: $('#ts22To').html(),
-											outcome: $('#o22').val()
-										}
-									},
-									branch3: {
-										'@' : {
-											id : 'branch3'
-										},
-										'#' : {
-											emotion: $('#em23').val(),
-											start: $('#ts23From').html(),
-											end: $('#ts23To').html(),
-											outcome: $('#o23').val()
-										}
-									}
-								}
-							},
-							level3: {
-								'@' : {
-									id : 'level3'
-								},
-								'#' : {
-									start: $('#tslvl3From').html(),
-									end: $('#tslvl3To').html(),
-									branch1: {
-										'@' : {
-											id : 'branch1'
-										},
-										'#' : {
-											emotion: $('#em31').val(),
-											start: $('#ts31From').html(),
-											end: $('#ts31To').html(),
-											outcome: $('#o31').val()
-										}
-									},
-									branch2: {
-										'@' : {
-											id : 'branch2'
-										},
-										'#' : {
-											emotion: $('#em32').val(),
-											start: $('#ts32From').html(),
-											end: $('#ts32To').html(),
-											outcome: $('#o32').val()
-										}
-									}
-								}
-							},
-							level4: {
-								'@' : {
-									id : 'level4'
-								},
-								'#' : {
-									start: $('#tslvl4From').html(),
-									end: $('#tslvl4To').html(),
-									branch1: {
-										'@' : {
-											id : 'branch1'
-										},
-										'#' : {
-											emotion: $('#em41').val(),
-											start: $('#ts41From').html(),
-											end: $('#ts41To').html(),
-											outcome: $('#o41').val()
-										}
-									},
-									branch2: {
-										'@' : {
-											id : 'branch2'
-										},
-										'#' : {
-											emotion: $('#em42').val(),
-											start: $('#ts42From').html(),
-											end: $('#ts42To').html(),
-											outcome: $('#o42').val()
-										}
-									},
-									branch3: {
-										'@' : {
-											id : 'branch3'
-										},
-										'#' : {
-											emotion: $('#em43').val(),
-											start: $('#ts43From').html(),
-											end: $('#ts43To').html(),
-											outcome: $('#o43').val()
-										}
-									}
-								}
-							}
-						}
-					}
-	      }
-	    }
-	  }
-	};
-
-	var blob = new Blob([o2x(obj)], {type: "text/xml;charset=utf-8"});
-	FileSaver.saveAs(blob, "config.xml");
-}
-
-const sliderValue = {
-        range: true,
-        min: 0,
-        max: 637,
-        slide: function(e, ui) {
-            var fromMins = Math.floor(ui.values[0] / 60);
-            var fromSeconds = ui.values[0] - (fromMins * 60);
-
-            if(fromMins.toString().length == 1) fromMins = '0' + fromMins;
-            if(fromSeconds.toString().length == 1) fromSeconds = '0' + fromSeconds;
-
-            $('#' + this.id + 'From').html(fromMins+':'+fromSeconds);
-
-						var toMins = Math.floor(ui.values[1] / 60);
-            var toSeconds = ui.values[1] - (toMins * 60);
-
-            if(toMins.toString().length == 1) toMins = '0' + toMins;
-            if(toSeconds.toString().length == 1) toSeconds = '0' + toSeconds;
-
-            $('#' + this.id + 'To').html(toMins+':'+toSeconds);
+  function exportConfiguration() {
+    var obj = {
+      '?xml version=\"1.0\" encoding=\"iso-8859-1\"?': null,
+      request: {
+        '#': {
+          config: {
+            '#': {
+              media: {
+                video: "Resources/media/film.m4v",
+                audio: "Resources/media/RIOT_II_binarual_master_03.wav"
+              },
+              workflow: {
+                level1: {
+                  '@': {
+                    id: 'level1'
+                  },
+                  '#': {
+                    start: $('#tslvl1From').html(),
+                    end: $('#tslvl1To').html(),
+                    branch1: {
+                      '@': {
+                        id: 'branch1'
+                      },
+                      '#': {
+                        emotion: $('#em11').val(),
+                        start: $('#ts11From').html(),
+                        end: $('#ts11To').html(),
+                        outcome: $('#o11').val()
+                      }
+                    },
+                    branch2: {
+                      '@': {
+                        id: 'branch2'
+                      },
+                      '#': {
+                        emotion: $('#em12').val(),
+                        start: $('#ts12From').html(),
+                        end: $('#ts12To').html(),
+                        outcome: $('#o12').val()
+                      }
+                    },
+                    branch3: {
+                      '@': {
+                        id: 'branch3'
+                      },
+                      '#': {
+                        emotion: $('#em13').val(),
+                        start: $('#ts13From').html(),
+                        end: $('#ts13To').html(),
+                        outcome: $('#o13').val()
+                      }
+                    }
+                  }
+                },
+                level2: {
+                  '@': {
+                    id: 'level2'
+                  },
+                  '#': {
+                    start: $('#tslvl2From').html(),
+                    end: $('#tslvl2To').html(),
+                    branch1: {
+                      '@': {
+                        id: 'branch1'
+                      },
+                      '#': {
+                        emotion: $('#em21').val(),
+                        start: $('#ts21From').html(),
+                        end: $('#ts21To').html(),
+                        outcome: $('#o21').val()
+                      }
+                    },
+                    branch2: {
+                      '@': {
+                        id: 'branch2'
+                      },
+                      '#': {
+                        emotion: $('#em22').val(),
+                        start: $('#ts22From').html(),
+                        end: $('#ts22To').html(),
+                        outcome: $('#o22').val()
+                      }
+                    },
+                    branch3: {
+                      '@': {
+                        id: 'branch3'
+                      },
+                      '#': {
+                        emotion: $('#em23').val(),
+                        start: $('#ts23From').html(),
+                        end: $('#ts23To').html(),
+                        outcome: $('#o23').val()
+                      }
+                    }
+                  }
+                },
+                level3: {
+                  '@': {
+                    id: 'level3'
+                  },
+                  '#': {
+                    start: $('#tslvl3From').html(),
+                    end: $('#tslvl3To').html(),
+                    branch1: {
+                      '@': {
+                        id: 'branch1'
+                      },
+                      '#': {
+                        emotion: $('#em31').val(),
+                        start: $('#ts31From').html(),
+                        end: $('#ts31To').html(),
+                        outcome: $('#o31').val()
+                      }
+                    },
+                    branch2: {
+                      '@': {
+                        id: 'branch2'
+                      },
+                      '#': {
+                        emotion: $('#em32').val(),
+                        start: $('#ts32From').html(),
+                        end: $('#ts32To').html(),
+                        outcome: $('#o32').val()
+                      }
+                    }
+                  }
+                },
+                level4: {
+                  '@': {
+                    id: 'level4'
+                  },
+                  '#': {
+                    start: $('#tslvl4From').html(),
+                    end: $('#tslvl4To').html(),
+                    branch1: {
+                      '@': {
+                        id: 'branch1'
+                      },
+                      '#': {
+                        emotion: $('#em41').val(),
+                        start: $('#ts41From').html(),
+                        end: $('#ts41To').html(),
+                        outcome: $('#o41').val()
+                      }
+                    },
+                    branch2: {
+                      '@': {
+                        id: 'branch2'
+                      },
+                      '#': {
+                        emotion: $('#em42').val(),
+                        start: $('#ts42From').html(),
+                        end: $('#ts42To').html(),
+                        outcome: $('#o42').val()
+                      }
+                    },
+                    branch3: {
+                      '@': {
+                        id: 'branch3'
+                      },
+                      '#': {
+                        emotion: $('#em43').val(),
+                        start: $('#ts43From').html(),
+                        end: $('#ts43To').html(),
+                        outcome: $('#o43').val()
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
+      }
     };
 
-const timerElements = ["tslvl1", "tslvl2", "tslvl3", "tslvl4",
-"ts11",
-"ts12",
-"ts13",
-"ts21",
-"ts22",
-"ts23",
-"ts31",
-"ts32",
-"ts41",
-"ts42",
-"ts43"]
+    var blob = new Blob([o2x(obj)], {type: "text/xml;charset=utf-8"});
+    FileSaver.saveAs(blob, "config.xml");
+  }
 
-$.each(timerElements, function(idx, elem) {
-	$( "#" + elem ).slider(sliderValue);
-	$( "#" + elem + "From" ).html("0:0");
-	$( "#" + elem + "To").html("0:0");
-});
+  function leftPad(length, str) {
+    if (this.length >= length) {
+      return this;
+    }
+    str = str || ' ';
+    return (new Array(Math.ceil((length - this.length) / str.length) + 1).join(str)).substr(0, (length - this.length)) + this;
+  }
+
+  const sliderValue = {
+    range: true,
+    min: 0,
+    max: 637000,
+    slide: function (e, ui) {
+      var fromMins = Math.floor(ui.values[0] / 60000);
+      var fromSeconds = Math.floor(ui.values[0] / 1000) - (fromMins * 60);
+      var fromMilliseconds = ui.values[0] - (fromMins * 60000) - (fromSeconds * 1000);
+
+      if (fromMins.toString().length == 1) fromMins = '0' + fromMins;
+      if (fromSeconds.toString().length == 1) fromSeconds = '0' + fromSeconds;
+      fromMilliseconds = leftPad.call(String(fromMilliseconds), 3, '0');
+
+      $('#' + this.id + 'From').html(fromMins + ':' + fromSeconds + ':' + fromMilliseconds);
+
+      var toMins = Math.floor(ui.values[1] / 60000);
+      var toSeconds = Math.floor(ui.values[1] / 1000) - (toMins * 60);
+      var toMilliseconds = ui.values[1] - (toMins * 60000) - (toSeconds * 1000);
+
+      if (toMins.toString().length == 1) toMins = '0' + toMins;
+      if (toSeconds.toString().length == 1) toSeconds = '0' + toSeconds;
+      toMilliseconds = leftPad.call(String(toMilliseconds), 3, '0');
+
+      $('#' + this.id + 'To').html(toMins + ':' + toSeconds + ':' + toMilliseconds);
+    }
+  };
+
+  const timerElements = ["tslvl1", "tslvl2", "tslvl3", "tslvl4",
+    "ts11",
+    "ts12",
+    "ts13",
+    "ts21",
+    "ts22",
+    "ts23",
+    "ts31",
+    "ts32",
+    "ts41",
+    "ts42",
+    "ts43"]
+
+  $.each(timerElements, function (idx, elem) {
+    $("#" + elem).slider(sliderValue);
+    $("#" + elem + "From").html("0:0");
+    $("#" + elem + "To").html("0:0");
+  });
 
 </script>
 </body>
