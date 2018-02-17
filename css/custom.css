@@ -1,0 +1,15 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    margin: 50px;
+}
+select {
+    margin-top: 1em;
+    width: 200px;
+}
+label {
+    margin-top: 1em;
+    display: block;
+}
+.buttons {
+    padding: 20px;
+}

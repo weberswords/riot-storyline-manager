@@ -44,6 +44,10 @@ html {
 	text-indent: 10px;
 }
 
+.removeButton {
+  float: right
+}
+
 .accordion .ui-accordion-header {
 	background-color: #389abe;
 	background-image: -moz-linear-gradient(top, #fa9300 0%, #dc621e 100%);
