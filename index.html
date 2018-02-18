@@ -60,17 +60,17 @@
     <h3>Branch - {{>key}}</h3>
     <div>
         <div class="timer-range">
-            <label for="ts{{:#getIndex() + 1}}{{:#parent.parent.parent.data.level}}">Timeline
-                <span id="ts{{:#getIndex + 1}}{{:#parent.parent.parent.data.level}}From">{^{>prop.start}}</span>
-                - <span id="ts{{:#getIndex + 1}}{{:#parent.parent.parent.data.level}}To">{^{>prop.end}}</span>
+            <label for="{{:#parent.parent.parent.data.level}}ts{{:#getIndex() + 1}}">Timeline
+                <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex + 1}}From">{^{>prop.start}}</span>
+                - <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex + 1}}To">{^{>prop.end}}</span>
             </label>
-            <div id="ts{{:#getIndex() + 1}}{{:#parent.parent.parent.data.level}}"></div>
+            <div id="{{:#parent.parent.parent.data.level}}ts{{:#getIndex() + 1}}"></div>
         </div>
         <div class="outcome">
-            <label for="o{{:#getIndex() + 1}}{{:#parent.parent.parent.data.level}}">Outcome</label>
-            <select id="o{{:#getIndex() + 1}}{{:#parent.parent.parent.data.level}}">
+            <label for="o{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}">Outcome</label>
+            <select id="o{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}" data-link="prop.outcome">
                 {^{range start=(#parent.parent.parent.data.level+1) end=~root.levels.length}}
-                    <option selected value={{:#data}}>Level{{:#data}}</option>
+                    <option value={{:#data}}>Level{{:#data}}</option>
                 {{/range}}
                 <option value="0">End</option>
             </select>
@@ -149,7 +149,7 @@
 
     Object.keys(level.branch).forEach(function (key, idx) {
       $("#branch_" + key + "_" + level.level).accordion(accordionConfig);
-      const branchTimerId = "#ts" + (idx + 1) + level.level;
+      const branchTimerId = "#ts" + level.level + (idx + 1);
       $(branchTimerId).slider(sliderValue);
       $(branchTimerId).slider("option", "values", [
         convertStringToMilliSeconds(level.branch[key].start),
