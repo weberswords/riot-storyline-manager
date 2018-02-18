@@ -41,7 +41,7 @@
     <div id="levelsAccordion{{:level}}">
         <h3>Level {{:level}}</h3>
         <div>
-            <button class="removeButton" data-link="{on ~removeLevel #getIndex()}">Remove</button>
+            <button class="removeButton" data-link="{on ~removeLevel #getIndex()}">Remove Level</button>
             <div class="timer-range">
                 <label for="tslvl{{:level}}">Timeline
                     <span id="tslvl{{:level}}From">{^{:start}}</span> - <span id="tslvl{{:level}}To">{^{:end}}</span>
@@ -60,11 +60,11 @@
     <h3>Branch - {{>key}}</h3>
     <div>
         <div class="timer-range">
-            <label for="{{:#parent.parent.parent.data.level}}ts{{:#getIndex() + 1}}">Timeline
-                <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex + 1}}From">{^{>prop.start}}</span>
-                - <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex + 1}}To">{^{>prop.end}}</span>
+            <label for="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}">Timeline
+                <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}From">{^{>prop.start}}</span>
+                - <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}To">{^{>prop.end}}</span>
             </label>
-            <div id="{{:#parent.parent.parent.data.level}}ts{{:#getIndex() + 1}}"></div>
+            <div id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}"></div>
         </div>
         <div class="outcome">
             <label for="o{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}">Outcome</label>
@@ -144,17 +144,17 @@
     $("#levelsAccordion" + level.level).accordion(accordionConfig);
     const levelTimerId = "#tslvl" + level.level;
     $(levelTimerId).slider(sliderValue);
-    $(levelTimerId).slider("option", "values",
+    $(levelTimerId).slider("values",
         [convertStringToMilliSeconds(level.start), convertStringToMilliSeconds(level.end)]);
 
     Object.keys(level.branch).forEach(function (key, idx) {
       $("#branch_" + key + "_" + level.level).accordion(accordionConfig);
       const branchTimerId = "#ts" + level.level + (idx + 1);
       $(branchTimerId).slider(sliderValue);
-      $(branchTimerId).slider("option", "values", [
+      $(branchTimerId).slider("values",[
         convertStringToMilliSeconds(level.branch[key].start),
-        convertStringToMilliSeconds(level.branch[key].end)
-      ]);
+        convertStringToMilliSeconds(level.branch[key].end)]
+      );
     });
   };
 
