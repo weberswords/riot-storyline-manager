@@ -38,8 +38,8 @@
 </script>
 
 <script id="levelTemplate" type="text/x-jsrender">
-    <div id="levelsAccordion{{:level}}">
-        <h3>Level {{:level}}</h3>
+    <div id="levelsAccordion{{:#getIndex()+1}}">
+        <h3>Level {^{:#getIndex()+1}}</h3>
         <div>
             <button class="removeButton" data-link="{on ~removeLevel #getIndex()}">Remove Level</button>
             <div class="timer-range">
@@ -56,20 +56,20 @@
 </script>
 
 <script id="branchTemplate" type="text/x-jsrender">
-  <div id="branch_{{>key}}_{{:#parent.parent.parent.data.level}}">
+  <div id="branch_{{>key}}_{{:#parent.parent.parent.getIndex()+1}}">
     <h3>Branch - {{>key}}</h3>
     <div>
         <div class="timer-range">
-            <label for="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}">Timeline
-                <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}From">{^{>prop.start}}</span>
-                - <span id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}To">{^{>prop.end}}</span>
+            <label for="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}">Timeline
+                <span id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}From">{^{>prop.start}}</span>
+                - <span id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}To">{^{>prop.end}}</span>
             </label>
-            <div id="ts{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}"></div>
+            <div id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}"></div>
         </div>
         <div class="outcome">
-            <label for="o{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}">Outcome</label>
-            <select id="o{{:#parent.parent.parent.data.level}}{{:#getIndex() + 1}}" data-link="prop.outcome">
-                {^{range start=(#parent.parent.parent.data.level+1) end=~root.levels.length}}
+            <label for="o{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}">Outcome</label>
+            <select id="o{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}" data-link="prop.outcome">
+                {^{range start=(#parent.parent.parent.getIndex()+1+1) end=~root.levels.length}}
                     <option value={{:#data}}>Level{{:#data}}</option>
                 {{/range}}
                 <option value="0">End</option>
@@ -120,18 +120,24 @@
     }
   };
 
+  var updateLevels = function () {
+    tmpl.link("#configurationContainer", config, helpers);
+    config.levels.forEach(function (level, idx) {
+      initLevel(level, idx + 1);
+    });
+  };
   var helpers = {
     addLevel: function() {
-      if (levelCounter === 12) return false;
+      if (config.levels.length === 12) return false;
       const levelValue = Object.assign({}, newLevel);
-      levelValue.level = ++levelCounter;
+      levelValue.level = config.levels.length + 1;
       $.observable(config.levels).insert(levelValue);
-      initLevel(levelValue);
+      updateLevels();
     },
     removeLevel: function(index) {
-      if (config.levels === 0) return false;
+      if (config.levels.length === 0) return false;
       $.observable(config.levels).remove(index);
-      --levelCounter;
+      updateLevels();
       return false;
     },
     exportConfiguration: function() {
@@ -140,16 +146,16 @@
     }
   };
 
-  var initLevel = function (level) {
-    $("#levelsAccordion" + level.level).accordion(accordionConfig);
-    const levelTimerId = "#tslvl" + level.level;
+  var initLevel = function (level, levelIndex) {
+    $("#levelsAccordion" + levelIndex).accordion(accordionConfig);
+    const levelTimerId = "#tslvl" + levelIndex;
     $(levelTimerId).slider(sliderValue);
     $(levelTimerId).slider("values",
         [convertStringToMilliSeconds(level.start), convertStringToMilliSeconds(level.end)]);
 
     Object.keys(level.branch).forEach(function (key, idx) {
-      $("#branch_" + key + "_" + level.level).accordion(accordionConfig);
-      const branchTimerId = "#ts" + level.level + (idx + 1);
+      $("#branch_" + key + "_" + levelIndex).accordion(accordionConfig);
+      const branchTimerId = "#ts" + levelIndex + (idx + 1);
       $(branchTimerId).slider(sliderValue);
       $(branchTimerId).slider("values",[
         convertStringToMilliSeconds(level.branch[key].start),
@@ -166,8 +172,8 @@
       config = response;
       levelCounter = config.levels.length;
       tmpl.link("#configurationContainer", config, helpers);
-      config.levels.forEach(function(level) {
-        initLevel(level);
+      config.levels.forEach(function(level, idx) {
+        initLevel(level, idx+1);
       });
     }
   });
