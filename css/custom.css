@@ -21,3 +21,8 @@ span .toggle-branch {
 .disabled-accordion  {
     background: red;
 }
+
+input {
+    width: 50%;
+    padding: 1%;
+}

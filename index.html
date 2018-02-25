@@ -26,6 +26,12 @@
 <script id="configurationTemplate" type="text/x-jsrender">
     <div id="exportConfiguration">
         <div id="controlgroup">
+          <div class="media">
+            <label>Video File:</label> <input type="text" class="ui-widget ui-state-default ui-corner-all" data-link="#data.media.video">
+            <label>Audio File:</label> <input type="text" class="ui-widget ui-state-default ui-corner-all" data-link="#data.media.audio">
+            <br />
+            <br />
+          </div>
           {^{for levels}}
             {{include tmpl="#levelTemplate" /}}
           {{/for}}
