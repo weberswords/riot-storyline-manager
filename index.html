@@ -40,8 +40,8 @@
 <script id="levelTemplate" type="text/x-jsrender">
     <div id="levelsAccordion{{:#getIndex()+1}}">
         <h3>Level {^{:#getIndex()+1}}</h3>
-        <div>
-            <button class="removeButton" data-link="{on ~removeLevel #getIndex()}">Remove Level</button>
+        <div class="content">
+            <button class="ui-button ui-widget ui-corner-all" data-link="{on ~removeLevel #getIndex()}">Remove Level</button>
             <div class="timer-range">
                 <label for="tslvl{{:level}}">Timeline
                     <span id="tslvl{{:level}}From">{^{:start}}</span> - <span id="tslvl{{:level}}To">{^{:end}}</span>
@@ -59,28 +59,32 @@
   <div id="branch_{{>key}}_{{:#parent.parent.parent.getIndex()+1}}">
     <h3>Branch - {{>key}}</h3>
     <div>
-        <div class="timer-range">
-            <label for="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}">Timeline
-                <span id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}From">{^{>prop.start}}</span>
-                - <span id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}To">{^{>prop.end}}</span>
-            </label>
-            <div id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}"></div>
-        </div>
-        <div class="outcome">
-            <label for="o{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}">Outcome</label>
-            <select id="o{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}" data-link="prop.outcome">
-                {^{range start=(#parent.parent.parent.getIndex()+1+1) end=~root.levels.length}}
-                    <option value={{:#data}}>Level{{:#data}}</option>
-                {{/range}}
-                <option value="0">End</option>
-            </select>
-        </div>
+        <label><input type="checkbox" data-link="#data.prop.disabled" />Toggle</label>
+        <div class="content" data-link="class{merge:#data.prop.disabled toggle='ui-state-disabled'}">
+            <div class="timer-range">
+                <label for="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}">Timeline
+                    <span id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}From">{^{>prop.start}}</span>
+                    - <span id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}To">{^{>prop.end}}</span>
+                </label>
+                <div id="ts{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}"></div>
+            </div>
+            <div class="outcome">
+                <label for="o{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}">Outcome</label>
+                <select id="o{{:#parent.parent.parent.getIndex()+1}}{{:#getIndex() + 1}}" data-link="prop.outcome">
+                    {^{range start=(#parent.parent.parent.getIndex()+1+1) end=~root.levels.length}}
+                        <option value={{:#data}}>Level{{:#data}}</option>
+                    {{/range}}
+                    <option value="0">End</option>
+                </select>
+            </div>
+         </div>
     </div>
   </div>
 </script>
 
 
 <script>
+
   function convertStringToMilliSeconds(timeString) {
     const parts = timeString.split(':');
     return (Number(parts[0])*60+Number(parts[1].substring(0, parts[1].indexOf('.'))))*1000 + Number(parts[1].indexOf('.')+1);
@@ -97,7 +101,6 @@
   };
 
   var config;
-  var levelCounter;
 
   var newLevel = {
     "level": 0,
@@ -107,17 +110,38 @@
       "anger": {
         "start": "00:00.000",
         "end": "00:00.000",
-        "outcome": 0
+        "outcome": 0,
+        "disabled": false
       },
       "fear": {
         "start": "00:00.000",
         "end": "00:00.000",
-        "outcome": 0
+        "outcome": 0,
+        "disabled": false
       },
       "calm": {
         "start": "00:00.000",
         "end": "00:00.000",
-        "outcome": 0
+        "outcome": 0,
+        "disabled": false
+      },
+      "disgust": {
+        "start": "00:00.000",
+        "end": "00:00.000",
+        "outcome": 0,
+        "disabled": true
+      },
+      "contempt": {
+        "start": "00:00.000",
+        "end": "00:00.000",
+        "outcome": 0,
+        "disabled": true
+      },
+      "surprise": {
+        "start": "00:00.000",
+        "end": "00:00.000",
+        "outcome": 0,
+        "disabled": true
       }
     }
   };
@@ -141,6 +165,11 @@
       $.observable(config.levels).remove(index);
       updateLevels();
       return false;
+    },
+    toggleBranch: function(levelIndex, key) {
+      const levels = $.observable(config.levels);
+      const isDisabled = levels.data()[levelIndex].branch[key].disabled;
+      levels.data()[levelIndex].branch[key].disabled = !isDisabled;
     },
     exportConfiguration: function() {
       var blob = new Blob([JSON.stringify(config, null, 2)], {type: "text/plain;charset=utf-8"});
@@ -166,15 +195,34 @@
     });
   };
 
+  var initBranches = function(level) {
+    var branch = level.branch;
+    var keys = Object.keys(branch);
+    var emotionsNotPresentInConfig = branchEmotions.filter(function(n) {
+      return keys.indexOf(n) === -1;
+    });
+    emotionsNotPresentInConfig.forEach(function(emotion) {
+      branch[emotion] = {
+        "start": "00:00.000",
+        "end": "00:00.000",
+        "outcome": 0,
+        "disabled": true
+      };
+    })
+  };
+
   var tmpl = $.templates("#configurationTemplate");
   $.ajax({
     url: "config/config.json",
     dataType: "json",
     success: function(response) {
       config = response;
-      levelCounter = config.levels.length;
+      config.levels.forEach(function(level) {
+        initBranches(level);
+      });
       tmpl.link("#configurationContainer", config, helpers);
       config.levels.forEach(function(level, idx) {
+        initBranches(level);
         initLevel(level, idx+1);
       });
     }

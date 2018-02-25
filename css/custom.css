@@ -13,3 +13,7 @@ label {
 .buttons {
     padding: 20px;
 }
+
+span .toggle-branch {
+    float: right;
+}
