@@ -17,3 +17,7 @@ label {
 span .toggle-branch {
     float: right;
 }
+
+.disabled-accordion  {
+    background: red;
+}
