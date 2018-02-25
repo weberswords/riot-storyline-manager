@@ -22,7 +22,7 @@ span .toggle-branch {
     background: red;
 }
 
-input {
+input[type="text"] {
     width: 50%;
     padding: 1%;
 }
