@@ -184,6 +184,7 @@
   };
 
   var initLevel = function (level, levelIndex) {
+    level.level = levelIndex;
     $("#levelsAccordion" + levelIndex).accordion(accordionConfig);
     const levelTimerId = "#tslvl" + levelIndex;
     $(levelTimerId).slider(sliderValue);
