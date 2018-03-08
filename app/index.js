@@ -1,15 +1,54 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class App extends React.Component {
+class Level extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            "visible": true
+        }
+    }
+
+    handleRemoveLevelClick() {
+        this.setState({ "visible": false });
+    }
+
+    level() {
+        return (
+            <div className="level" id="level {this.props.levelIndex}">
+                <h3>Level {this.props.levelIndex} </h3>
+                <div className="content">
+                    <button className="remove" onClick={this.handleRemoveLevelClick}>Remove</button>
+                    <div className="timer-range">timer ranges</div>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
-            <div>
-                Hello World!!!
+            this.state.visible ? this.level() : null
+        );
+    }
+}
+
+class Container extends React.Component {
+
+    renderLevel(i) {
+        return (
+            <Level levelIndex={i} />
+        )
+    }
+
+    render() {
+        return (
+            <div id="container">
+                { this.renderLevel(0) }
+                { this.renderLevel(1) }
             </div>
         );
     }
 }
-// export default App;
 
-ReactDOM.render(<App />, document.getElementById('app'));
+
+ReactDOM.render(<Container />, document.getElementById('app'));
