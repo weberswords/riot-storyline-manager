@@ -5,12 +5,13 @@ class Level extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            "visible": true
+            visible: true
         }
+        this.handleRemoveLevelClick = this.handleRemoveLevelClick.bind(this);
     }
 
     handleRemoveLevelClick() {
-        this.setState({ "visible": false });
+        this.setState({ visible: false });
     }
 
     level() {
@@ -33,22 +34,36 @@ class Level extends React.Component {
 }
 
 class Container extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            levels: []
+        }
+        this.incrementLevels = this.incrementLevels.bind(this);
+    }
 
-    renderLevel(i) {
-        return (
-            <Level levelIndex={i} />
-        )
+    incrementLevels() {
+        const levelIndex = this.state.levels.length;
+        const levels = this.state.levels.slice(0, levelIndex);
+
+        this.setState({
+            levels: levels.concat([<Level levelIndex={levelIndex}/>])
+        });
     }
 
     render() {
         return (
             <div id="container">
-                { this.renderLevel(0) }
-                { this.renderLevel(1) }
+                <button id="addLevel" onClick={this.incrementLevels}>Add Level</button>
+                <div>
+                    {
+                        this.state.levels.map((level) =>
+                            <div> {level} </div>)
+                    }
+                </div>
             </div>
         );
     }
 }
-
 
 ReactDOM.render(<Container />, document.getElementById('app'));
