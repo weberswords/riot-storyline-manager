@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+// import { Button } from 'react-bootstrap/lib/Button';
+import { Button } from 'react-bootstrap';
+import Alert from 'react-bootstrap/lib/Alert';
+
 
 class Branch extends React.Component {
     constructor(props) {
@@ -40,7 +45,7 @@ class Branch extends React.Component {
         return(
             <div>
                 <h4>Branch {this.props.emotion} </h4>
-                <input type="checkbox" onClick={this.handleToggle} /><span> Disable </span>
+                <input type="checkbox" bsStyle="primary" bsSize="large" onClick={this.handleToggle} /><span> Disable </span>
                 {this.branch()}
             </div>
         );
@@ -77,7 +82,7 @@ class Level extends React.Component {
             <div className="level" id="level {this.props.levelIndex}">
                 <h3>Level {this.props.levelIndex} </h3>
                 <div className="content">
-                    <button className="remove" onClick={this.handleRemoveLevelClick}>Remove</button>
+                    <Button className="remove" bsStyle="primary" onClick={this.handleRemoveLevelClick}>Remove</Button>
                     <div className="timer-range">timer ranges</div>
                     <div>
                         {
@@ -118,6 +123,7 @@ class Container extends React.Component {
     // still gotta do this
     handleExport() {
         alert("export that shit");
+        // <Alert ("export that shit") />
     }
 
     render() {
@@ -132,8 +138,8 @@ class Container extends React.Component {
                             <div> {level} </div>)
                     }
                 </div>
-                <button id="addLevel" onClick={this.incrementLevels}>Add Level</button>
-                <button id="export" onClick={this.handleExport}>Export</button>
+                <Button id="addLevel" bsStyle="primary" onClick={this.incrementLevels}>Add Level</Button>
+                <Button id="export" bsStyle="primary" onClick={this.handleExport}>Export</Button>
             </div>
         );
     }
