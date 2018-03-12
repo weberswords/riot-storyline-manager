@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-// import { Button } from 'react-bootstrap/lib/Button';
-import { Button } from 'react-bootstrap';
-import Alert from 'react-bootstrap/lib/Alert';
 
+import { Button } from 'react-bootstrap';
 
 class Branch extends React.Component {
     constructor(props) {
@@ -13,7 +11,8 @@ class Branch extends React.Component {
             enabled: true,
             start: "00:00.000",
             end: "00:00.000",
-            outcome: null
+            outcome: null,
+            otherLevels: this.props.otherLevels
         }
     }
 
@@ -25,11 +24,11 @@ class Branch extends React.Component {
 
     branch() {
         if (this.props.otherLevels.length > 0) {
-            return (
+            return ( 
                 <select>
                     {
-                        this.props.otherLevels.map((level) =>
-                            <option value={level.getLevelIndex()}>Level {level.getLevelIndex()}</option>)
+                        this.state.otherLevels.map((level, i) =>
+                            <option value={i}>Level {i}</option>)
                     }
                 </select>
             );
@@ -40,8 +39,6 @@ class Branch extends React.Component {
     }
 
     render() {
-        console.log(this.props.otherLevels);
-
         return(
             <div>
                 <h4>Branch {this.props.emotion} </h4>
@@ -58,23 +55,48 @@ class Level extends React.Component {
         this.state = {
             visible: true,
             branches: [
-                <Branch emotion="anger" otherLevels={this.props.otherLevels} />,
-                <Branch emotion="fear" otherLevels={this.props.otherLevels}/>,
-                <Branch emotion="calm" otherLevels={this.props.otherLevels}/>,
-                <Branch emotion="disgust" otherLevels={this.props.otherLevels}/>,
-                <Branch emotion="contempt" otherLevels={this.props.otherLevels}/>,
-                <Branch emotion="surprise" otherLevels={this.props.otherLevels} />
-            ]
+                <Branch emotion="anger" otherLevels={[]}/>,
+                <Branch emotion="fear" otherLevels={[]}/>,
+                <Branch emotion="calm" otherLevels={[]}/>,
+                <Branch emotion="disgust" otherLevels={[]}/>,
+                <Branch emotion="contempt" otherLevels={[]}/>,
+                <Branch emotion="surprise" otherLevels={[]}/>
+            ],
+            otherLevels: this.props.otherLevels
         }
         this.handleRemoveLevelClick = this.handleRemoveLevelClick.bind(this);
-    }
-
-    getLevelIndex() {
-        return this.props.levelIndex;
+        this.updateOtherLevels = this.updateOtherLevels.bind(this);
     }
 
     handleRemoveLevelClick() {
         this.setState({ visible: false });
+    }
+
+    updateOtherLevels(levels) {
+        this.setState({otherLevels: levels});
+    }
+
+    componentDidMount() {
+        this.setState({
+            branches: [
+                <Branch emotion="anger" otherLevels={this.state.otherLevels} />,
+                <Branch emotion="fear" otherLevels={this.state.otherLevels}/>,
+                <Branch emotion="calm" otherLevels={this.state.otherLevels}/>,
+                <Branch emotion="disgust" otherLevels={this.state.otherLevels}/>,
+                <Branch emotion="contempt" otherLevels={this.state.otherLevels}/>,
+                <Branch emotion="surprise" otherLevels={this.state.otherLevels} />
+            ]
+        });
+
+        console.log("called componentDidMount");
+        console.log(this.state.otherLevels);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            otherLevels: nextProps.otherLevels
+        });
+        console.log("called componentWillReceiveProps");
     }
 
     level() {
@@ -106,7 +128,8 @@ class Container extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            levels: []
+            levels: [],
+            message: "i have not changed"
         }
         this.incrementLevels = this.incrementLevels.bind(this);
     }
@@ -116,9 +139,15 @@ class Container extends React.Component {
         const levels = this.state.levels.slice(0, levelIndex);
 
         this.setState({
-            levels: levels.concat([<Level levelIndex={levelIndex} otherLevels={ this.state.levels }/>])
+            levels: levels.concat([<Level ref="level" levelIndex={levelIndex} otherLevels={ this.state.levels }/>])
         });
+
+        this.refs.level.updateOtherLevels(this.state.levels);
     }
+
+    // onUpdate(levels) {
+    //     this.setState({ levels });
+    // }
 
     // still gotta do this
     handleExport() {
@@ -134,8 +163,8 @@ class Container extends React.Component {
                 <br/>
                 <div>
                     {
-                        this.state.levels.map((level) =>
-                            <div> {level} </div>)
+                        this.state.levels.map(level =>
+                            <div> { level } </div>)
                     }
                 </div>
                 <Button id="addLevel" bsStyle="primary" onClick={this.incrementLevels}>Add Level</Button>
