@@ -14,6 +14,7 @@ class Branch extends React.Component {
             outcome: null,
             otherLevels: this.props.otherLevels
         }
+        this.handleToggle = this.handleToggle.bind(this);
     }
 
     handleToggle() {
@@ -22,28 +23,39 @@ class Branch extends React.Component {
         });
     }
 
+    getOtherLevelIndices() {
+        return Array(this.props.numLevels).fill()
+                                          .map((_, i) => i+1)
+                                          .filter(index => index !== this.props.parentIndex);
+    }
+
+
     branch() {
-        if (this.props.otherLevels.length > 0) {
-            return ( 
+        const otherLevelIndices = this.getOtherLevelIndices();
+        if (otherLevelIndices.length > 0) {
+            if (!this.state.enabled) {
+                return (
+                    <select disabled>
+                        { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
+                    </select>
+                );
+            }
+
+            return (
                 <select>
-                    {
-                        this.state.otherLevels.map((level, i) =>
-                            <option value={i}>Level {i}</option>)
-                    }
+                    { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
                 </select>
             );
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     render() {
         return(
             <div>
                 <h4>Branch {this.props.emotion} </h4>
-                <input type="checkbox" bsStyle="primary" bsSize="large" onClick={this.handleToggle} /><span> Disable </span>
-                {this.branch()}
+                <input type="checkbox" bsStyle="primary" bsSize="large" onClick={this.handleToggle}/><span> Disable </span>
+                { this.branch() }
             </div>
         );
     }
@@ -53,58 +65,24 @@ class Level extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: true,
+            start: "00:00.000",
+            end: "00:00.000",
             branches: [
-                <Branch emotion="anger" otherLevels={[]}/>,
-                <Branch emotion="fear" otherLevels={[]}/>,
-                <Branch emotion="calm" otherLevels={[]}/>,
-                <Branch emotion="disgust" otherLevels={[]}/>,
-                <Branch emotion="contempt" otherLevels={[]}/>,
-                <Branch emotion="surprise" otherLevels={[]}/>
-            ],
-            otherLevels: this.props.otherLevels
-        }
-        this.handleRemoveLevelClick = this.handleRemoveLevelClick.bind(this);
-        this.updateOtherLevels = this.updateOtherLevels.bind(this);
-    }
-
-    handleRemoveLevelClick() {
-        this.setState({ visible: false });
-    }
-
-    updateOtherLevels(levels) {
-        this.setState({otherLevels: levels});
-    }
-
-    componentDidMount() {
-        this.setState({
-            branches: [
-                <Branch emotion="anger" otherLevels={this.state.otherLevels} />,
-                <Branch emotion="fear" otherLevels={this.state.otherLevels}/>,
-                <Branch emotion="calm" otherLevels={this.state.otherLevels}/>,
-                <Branch emotion="disgust" otherLevels={this.state.otherLevels}/>,
-                <Branch emotion="contempt" otherLevels={this.state.otherLevels}/>,
-                <Branch emotion="surprise" otherLevels={this.state.otherLevels} />
+                <Branch emotion="anger" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />,
+                <Branch emotion="fear" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />,
+                <Branch emotion="calm" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
+                <Branch emotion="disgust" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
+                <Branch emotion="contempt" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
+                <Branch emotion="surprise" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />
             ]
-        });
-
-        console.log("called componentDidMount");
-        console.log(this.state.otherLevels);
+        }
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            otherLevels: nextProps.otherLevels
-        });
-        console.log("called componentWillReceiveProps");
-    }
-
-    level() {
+    render() {
         return (
             <div className="level" id="level {this.props.levelIndex}">
                 <h3>Level {this.props.levelIndex} </h3>
                 <div className="content">
-                    <Button className="remove" bsStyle="primary" onClick={this.handleRemoveLevelClick}>Remove</Button>
                     <div className="timer-range">timer ranges</div>
                     <div>
                         {
@@ -116,39 +94,9 @@ class Level extends React.Component {
             </div>
         );
     }
-
-    render() {
-        return (
-            this.state.visible ? this.level() : null
-        );
-    }
 }
 
 class Container extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            levels: [],
-            message: "i have not changed"
-        }
-        this.incrementLevels = this.incrementLevels.bind(this);
-    }
-
-    incrementLevels() {
-        const levelIndex = this.state.levels.length;
-        const levels = this.state.levels.slice(0, levelIndex);
-
-        this.setState({
-            levels: levels.concat([<Level ref="level" levelIndex={levelIndex} otherLevels={ this.state.levels }/>])
-        });
-
-        this.refs.level.updateOtherLevels(this.state.levels);
-    }
-
-    // onUpdate(levels) {
-    //     this.setState({ levels });
-    // }
-
     // still gotta do this
     handleExport() {
         alert("export that shit");
@@ -163,15 +111,14 @@ class Container extends React.Component {
                 <br/>
                 <div>
                     {
-                        this.state.levels.map(level =>
-                            <div> { level } </div>)
+                        Array(this.props.numLevels).fill().map((_,index) =>
+                            <Level levelIndex={index+1} numLevels={this.props.numLevels} />)
                     }
                 </div>
-                <Button id="addLevel" bsStyle="primary" onClick={this.incrementLevels}>Add Level</Button>
                 <Button id="export" bsStyle="primary" onClick={this.handleExport}>Export</Button>
             </div>
         );
     }
 }
 
-ReactDOM.render(<Container />, document.getElementById('app'));
+ReactDOM.render(<Container numLevels={5}/>, document.getElementById('app'));
