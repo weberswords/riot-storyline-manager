@@ -5,6 +5,15 @@ var Accordion = require('react-bootstrap').Accordion;
 var Panel = require('react-bootstrap').Panel;
 var Button = require('react-bootstrap').Button;
 
+function handleInputChange(event) {
+    const value = event.target.value;
+    console.log(value);
+
+    this.setState({
+        [event.target.name]: value
+    });
+}
+
 class Branch extends React.Component {
     constructor(props) {
         super(props);
@@ -16,7 +25,7 @@ class Branch extends React.Component {
             otherLevels: this.props.otherLevels
         }
         this.handleToggle = this.handleToggle.bind(this);
-        this.handleBranchInputChange = this.handleBranchInputChange.bind(this);
+        this.handleInputChange = handleInputChange.bind(this);
     }
 
     handleBranchInputChange(event) {
@@ -49,8 +58,8 @@ class Branch extends React.Component {
                 return (
                     <div>
                         <input name="enabled" type="hidden" value={this.state.enabled} />
-                        <label> Start Time: </label> <input name="start" type="text" label="start time" placeholder={this.state.start} value={this.state.start} onChange={this.handleBranchInputChange}/>
-                        <label> End Time: </label> <input name="end" type="text" label="end time" placeholder={this.state.end} value={this.state.end} onChange={this.handleBranchInputChange}/>
+                        <label> Start Time: </label> <input name="start" type="text" label="start time" placeholder={this.state.start} value={this.state.start} onChange={this.handleInputChange}/>
+                        <label> End Time: </label> <input name="end" type="text" label="end time" placeholder={this.state.end} value={this.state.end} onChange={this.handleInputChange}/>
                         <select name="outcome" value={this.state.outcome} onChange={this.handleBranchInputChange}>
                             { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
                         </select>
@@ -89,7 +98,7 @@ class Level extends React.Component {
             ]
         }
         this.show = this.show.bind(this);
-        this.handleLevelInputChange = this.handleLevelInputChange.bind(this);
+        this.handleInputChange = handleInputChange.bind(this);
     }
 
     show() {
@@ -113,8 +122,8 @@ class Level extends React.Component {
                     <h3> Level {this.props.levelIndex} </h3>
                     <div className="content">
                         <form>
-                            <label> Start Time: </label><input name="start" type="text" placeholder={this.state.start} value={this.state.start} onChange={this.handleLevelInputChange}/>
-                            <label> End Time: </label><input name="end" type="text" placeholder={this.state.end} value={this.state.end} onChange={this.handleLevelInputChange}/>
+                            <label> Start Time: </label><input name="start" type="text" placeholder={this.state.start} value={this.state.start} onChange={this.handleInputChange}/>
+                            <label> End Time: </label><input name="end" type="text" placeholder={this.state.end} value={this.state.end} onChange={this.handleInputChange}/>
                         </form>
                         <div>
                             { this.state.branches.map((branch) => <div> {branch} </div>) }
@@ -133,7 +142,7 @@ class Container extends React.Component {
             video: "vid/file/path",
             audio: "audio/file/path"
         }
-        this.handleContainerInputChange = this.handleContainerInputChange.bind(this);
+        this.handleInputChange = handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.objectifyMedia = this.objectifyMedia.bind(this);
     }
@@ -168,8 +177,8 @@ class Container extends React.Component {
         return (
             <div id="container">
                 <form onSubmit={this.handleSubmit}>
-                    <label>Video File: </label> <input name="video" type="text" value={this.state.video} placeholder={this.state.video} onChange={this.handleContainerInputChange}/>
-                    <label>Audio File: </label> <input name="audio" type="text"  value={this.state.audio} placeholder={this.state.audio} onChange={this.handleContainerInputChange}/>
+                    <label>Video File: </label> <input name="video" type="text" value={this.state.video} placeholder={this.state.video} onChange={this.handleInputChange}/>
+                    <label>Audio File: </label> <input name="audio" type="text"  value={this.state.audio} placeholder={this.state.audio} onChange={this.handleInputChange}/>
                     <br/>
                     <div>
                         { Array(this.props.numLevels).fill().map((_,index) =>
