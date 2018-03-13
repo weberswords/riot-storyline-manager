@@ -28,15 +28,6 @@ class Branch extends React.Component {
         this.handleInputChange = handleInputChange.bind(this);
     }
 
-    handleBranchInputChange(event) {
-        const value = event.target.value;
-        console.log(value);
-
-        this.setState({
-            [event.target.name]: value
-        });
-    }
-
     handleToggle() {
         this.setState({
             enabled: !this.state.enabled
@@ -105,15 +96,6 @@ class Level extends React.Component {
         alert("this is level " + this.props.levelIndex);
     }
 
-    handleLevelInputChange(event) {
-        const value = event.target.value;
-        console.log(value);
-
-        this.setState({
-            [event.target.name]: value
-        });
-    }
-
     render() {
         const index = this.props.levelIndex;
         return (
@@ -145,15 +127,6 @@ class Container extends React.Component {
         this.handleInputChange = handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.objectifyMedia = this.objectifyMedia.bind(this);
-    }
-
-    handleContainerInputChange(event) {
-        const value = event.target.value;
-        console.log(value);
-
-        this.setState({
-            [event.target.name]: value
-        });   
     }
 
     objectifyMedia() {
