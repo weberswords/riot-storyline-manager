@@ -1,6 +1,7 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ReactBootstrapSlider = require('react-bootstrap-slider');
+var FileSaver = require('file-saver');
 
 module.exports = {
     entry: "./app/index.js",
@@ -12,36 +13,27 @@ module.exports = {
         rules: [
             { test: /\.(js)$/, use: 'babel-loader' },
             { test: /\.css$/, use: [ 'style-loader', 'css-loader']},
-            {
-                test: /.jsx?$/,
+            { test: /.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                query: {
-                  presets: ['es2015', 'react']
-                }
+                query: { presets: ['es2015', 'react'] }
             },
-            { 
-              test: /\.png$/, 
+            { test: /\.png$/, 
               loader: "url-loader?limit=100000" 
             },
-            { 
-              test: /\.jpg$/, 
+            { test: /\.jpg$/, 
               loader: "file-loader" 
             },
-            {
-              test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, 
+            { test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, 
               loader: 'url?limit=10000&mimetype=application/font-woff'
             },
-            {
-              test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, 
+            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, 
               loader: 'url?limit=10000&mimetype=application/octet-stream'
             },
-            {
-              test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
+            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
               loader: 'file'
             },
-            {
-              test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, 
+            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, 
               loader: 'url?limit=10000&mimetype=image/svg+xml'
             }
         ]
