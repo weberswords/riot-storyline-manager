@@ -1,5 +1,6 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ReactBootstrapSlider = require('react-bootstrap-slider');
 
 module.exports = {
     entry: "./app/index.js",
@@ -10,7 +11,7 @@ module.exports = {
     module: {
         rules: [
             { test: /\.(js)$/, use: 'babel-loader' },
-            { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]},
+            { test: /\.css$/, use: [ 'style-loader', 'css-loader']},
             {
                 test: /.jsx?$/,
                 loader: 'babel-loader',

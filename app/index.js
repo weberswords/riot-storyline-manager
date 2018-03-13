@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-
-import { Button } from 'react-bootstrap';
+var Accordion = require('react-bootstrap').Accordion;
+var Panel = require('react-bootstrap').Panel;
+var Button = require('react-bootstrap').Button;
 
 class Branch extends React.Component {
     constructor(props) {
@@ -15,6 +16,16 @@ class Branch extends React.Component {
             otherLevels: this.props.otherLevels
         }
         this.handleToggle = this.handleToggle.bind(this);
+        this.handleBranchInputChange = this.handleBranchInputChange.bind(this);
+    }
+
+    handleBranchInputChange(event) {
+        const value = event.target.value;
+        console.log(value);
+
+        this.setState({
+            [event.target.name]: value
+        });
     }
 
     handleToggle() {
@@ -29,23 +40,24 @@ class Branch extends React.Component {
                                           .filter(index => index !== this.props.parentIndex);
     }
 
-
     branch() {
         const otherLevelIndices = this.getOtherLevelIndices();
+        const emotionWithIndex = this.props.emotion + this.props.parentIndex;
+
         if (otherLevelIndices.length > 0) {
-            if (!this.state.enabled) {
+            if (this.state.enabled) {
                 return (
-                    <select disabled>
-                        { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
-                    </select>
+                    <div>
+                        <input name="enabled" type="hidden" value={this.state.enabled} />
+                        <label> Start Time: </label> <input name="start" type="text" label="start time" placeholder={this.state.start} value={this.state.start} onChange={this.handleBranchInputChange}/>
+                        <label> End Time: </label> <input name="end" type="text" label="end time" placeholder={this.state.end} value={this.state.end} onChange={this.handleBranchInputChange}/>
+                        <select name="outcome" value={this.state.outcome} onChange={this.handleBranchInputChange}>
+                            { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
+                        </select>
+                    </div>
                 );
             }
-
-            return (
-                <select>
-                    { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
-                </select>
-            );
+            return(null);
         }
         return null;
     }
@@ -53,7 +65,7 @@ class Branch extends React.Component {
     render() {
         return(
             <div>
-                <h4>Branch {this.props.emotion} </h4>
+                <h6> {this.props.emotion} Branch </h6>
                 <input type="checkbox" bsStyle="primary" bsSize="large" onClick={this.handleToggle}/><span> Disable </span>
                 { this.branch() }
             </div>
@@ -68,57 +80,107 @@ class Level extends React.Component {
             start: "00:00.000",
             end: "00:00.000",
             branches: [
-                <Branch emotion="anger" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />,
-                <Branch emotion="fear" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />,
-                <Branch emotion="calm" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
-                <Branch emotion="disgust" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
-                <Branch emotion="contempt" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
-                <Branch emotion="surprise" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />
+                <Branch emotion="Anger" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />,
+                <Branch emotion="Fear" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />,
+                <Branch emotion="Calm" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
+                <Branch emotion="Disgust" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
+                <Branch emotion="Contempt" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels}/>,
+                <Branch emotion="Surprise" parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} />
             ]
         }
+        this.show = this.show.bind(this);
+        this.handleLevelInputChange = this.handleLevelInputChange.bind(this);
+    }
+
+    show() {
+        alert("this is level " + this.props.levelIndex);
+    }
+
+    handleLevelInputChange(event) {
+        const value = event.target.value;
+        console.log(value);
+
+        this.setState({
+            [event.target.name]: value
+        });
     }
 
     render() {
+        const index = this.props.levelIndex;
         return (
-            <div className="level" id="level {this.props.levelIndex}">
-                <h3>Level {this.props.levelIndex} </h3>
-                <div className="content">
-                    <div className="timer-range">timer ranges</div>
-                    <div>
-                        {
-                            this.state.branches.map((branch) =>
-                            <div> {branch} </div>)
-                        }
+            // <Panel header="Level {this.props.levelIndex}" eventKey={this.props.levelIndex}>
+                <div className="level" id="level{this.props.levelIndex}">
+                    <h3> Level {this.props.levelIndex} </h3>
+                    <div className="content">
+                        <form>
+                            <label> Start Time: </label><input name="start" type="text" placeholder={this.state.start} value={this.state.start} onChange={this.handleLevelInputChange}/>
+                            <label> End Time: </label><input name="end" type="text" placeholder={this.state.end} value={this.state.end} onChange={this.handleLevelInputChange}/>
+                        </form>
+                        <div>
+                            { this.state.branches.map((branch) => <div> {branch} </div>) }
+                        </div>
                     </div>
                 </div>
-            </div>
+            // </Panel>
         );
     }
 }
 
 class Container extends React.Component {
-    // still gotta do this
-    handleExport() {
-        alert("export that shit");
-        // <Alert ("export that shit") />
+    constructor(props) {
+        super(props);
+        this.state = {
+            video: "vid/file/path",
+            audio: "audio/file/path"
+        }
+        this.handleContainerInputChange = this.handleContainerInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.objectifyMedia = this.objectifyMedia.bind(this);
     }
 
+    handleContainerInputChange(event) {
+        const value = event.target.value;
+        console.log(value);
+
+        this.setState({
+            [event.target.name]: value
+        });   
+    }
+
+    objectifyMedia() {
+        var mediaObj = new Object();
+        mediaObj.video = this.state.video;
+        mediaObj.audio = this.state.audio;
+
+        return(new Object({media: mediaObj}));
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        var media = this.objectifyMedia();
+
+        alert(JSON.stringify(media));
+    }
+  
+
     render() {
+        const refName = (num) => ("level" + num);
         return (
             <div id="container">
-                <label>Video File:</label> <input type="text" value="vid file path"/>
-                <label>Audio File:</label> <input type="text"  value="audio file path"/>
-                <br/>
-                <div>
-                    {
-                        Array(this.props.numLevels).fill().map((_,index) =>
-                            <Level levelIndex={index+1} numLevels={this.props.numLevels} />)
-                    }
-                </div>
-                <Button id="export" bsStyle="primary" onClick={this.handleExport}>Export</Button>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Video File: </label> <input name="video" type="text" value={this.state.video} placeholder={this.state.video} onChange={this.handleContainerInputChange}/>
+                    <label>Audio File: </label> <input name="audio" type="text"  value={this.state.audio} placeholder={this.state.audio} onChange={this.handleContainerInputChange}/>
+                    <br/>
+                    <div>
+                        { Array(this.props.numLevels).fill().map((_,index) =>
+                            <Level ref={refName(index+1)} levelIndex={index+1} numLevels={this.props.numLevels} />
+                        )}
+                    </div>
+                    <Button type="submit" name="export" bsStyle="primary">Export</Button>
+                </form>
             </div>
         );
     }
 }
 
-ReactDOM.render(<Container numLevels={5}/>, document.getElementById('app'));
+ReactDOM.render(<Container numLevels={2}/>, document.getElementById('app'));
