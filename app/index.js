@@ -277,4 +277,4 @@ class Container extends React.Component {
     }
 }
 
-ReactDOM.render(<Container numLevels={2}/>, document.getElementById('app'));
+ReactDOM.render(<Container numLevels={3}/>, document.getElementById('app'));
