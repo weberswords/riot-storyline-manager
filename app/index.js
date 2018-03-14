@@ -16,23 +16,27 @@ const defaults = {
     audioPath: "audio/file/path"
 }
 
-const branches = ["anger", "fear", "calm", "disgust", "contempt", "surprise"];
+function createDefaultBranch(emotion) {
+    var branch = new Object();
+    branch.start = defaults.time;
+    branch.end = defaults.time;
+    branch.enabled = defaults.enabled;
+    branch.outcome = null;    
+    return branch;
+}
 
-const defaultBranchesObject = (function() {
+
+function createDefaultBranchesObject() {
+    const branches = ["anger", "fear", "calm", "disgust", "contempt", "surprise"];
     var populatedBranches = new Object();
 
     for (var i=0; i<branches.length;i++) {
-        var branch = new Object();
-        branch.start = defaults.time;
-        branch.end = defaults.time;
-        branch.enabled = defaults.enabled;
-        branch.outcome = null;
-
+        var branch = createDefaultBranch(branches[i]);
         populatedBranches[branches[i]] = branch;
     }
 
     return populatedBranches;
-})();
+}
 
 function createDefaultLevelsObject(numLevels) {
     var populatedLevels = new Object();
@@ -40,9 +44,11 @@ function createDefaultLevelsObject(numLevels) {
     for (var i=1; i<=numLevels;i++) {
         var levelId = "level" + i;
         var level = new Object();
+
+        level.index = i;
         level.start = defaults.time;
         level.end = defaults.time;
-        level.branches = defaultBranchesObject;
+        level.branches = createDefaultBranchesObject();
 
         populatedLevels[levelId] = level;
     }
@@ -58,31 +64,13 @@ function createDefaultLevelsObject(numLevels) {
 class Branch extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            enabled: true,
-            start: defaults.time,
-            end: defaults.time,
-            outcome: null
-        }
-        this.handleToggle = this.handleToggle.bind(this);
         this.handleBranchInputChange = this.handleBranchInputChange.bind(this);
     }
 
     handleBranchInputChange(event) {
-        const value = event.target.value;
-
-        this.setState({
-            [event.target.name]: value
-        });
-
-        console.log(this.state);
-        this.props.onChange(this.props.emotion, this.state);
-    }
-
-    handleToggle() {
-        this.setState({
-            enabled: !this.state.enabled
-        });
+        const name = event.target.name;
+        const value = event.target.name === "enabled" ? !this.props.value.enabled : event.target.value;
+        this.props.onChange(this.props.emotion, name, value);
     }
 
     getOtherLevelIndices() {
@@ -93,22 +81,18 @@ class Branch extends React.Component {
 
     branch() {
         const otherLevelIndices = this.getOtherLevelIndices();
-        const emotionWithIndex = this.props.emotion + this.props.parentIndex;
+        const branch = this.props.value;
 
-        if (otherLevelIndices.length > 0) {
-            if (this.state.enabled) {
-                return (
-                    <div>
-                        <input name="enabled" type="hidden" value={this.state.enabled} />
-                        <label> Start Time: </label> <input name="start" type="text" label="start time" placeholder={this.state.start} value={this.state.start} onChange={this.handleBranchInputChange}/>
-                        <label> End Time: </label> <input name="end" type="text" label="end time" placeholder={this.state.end} value={this.state.end} onChange={this.handleBranchInputChange}/>
-                        <select name="outcome" value={this.state.outcome} onChange={this.handleBranchInputChange}>
-                            { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
-                        </select>
-                    </div>
-                );
-            }
-            return(null);
+        if (branch.enabled) {
+            return (
+                <div>
+                    <label> Start Time: </label> <input name="start" type="text" label="start time" placeholder={branch.start} value={branch.start} onChange={this.handleBranchInputChange}/>
+                    <label> End Time: </label> <input name="end" type="text" label="end time" placeholder={branch.end} value={branch.end} onChange={this.handleBranchInputChange}/>
+                    <select name="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
+                        { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
+                    </select>
+                </div>
+            );
         }
         return null;
     }
@@ -117,7 +101,7 @@ class Branch extends React.Component {
         return(
             <div>
                 <h6> {this.props.emotion} Branch </h6>
-                <input type="checkbox" bsStyle="primary" bsSize="large" onClick={this.handleToggle}/><span> Disable </span>
+                <input type="checkbox" name="enabled" bsStyle="primary" bsSize="large" onClick={this.handleBranchInputChange}/><span> Disable </span>
                 { this.branch() }
             </div>
         );
@@ -133,48 +117,61 @@ class Branch extends React.Component {
 class Level extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            start: defaults.time,
-            end: defaults.time,
-            branches: defaultBranchesObject
-        }
         this.handleLevelInputChange = this.handleLevelInputChange.bind(this);
         this.handleBranchChange = this.handleBranchChange.bind(this);
+        this.handleEnableToggle = this.handleEnableToggle.bind(this);
     }
 
     handleLevelInputChange(event) {
+        const name = event.target.name;
         const value = event.target.value;
+        const levelId = "level" + this.props.levelIndex;
 
-        this.setState({
-            [event.target.name]: value
-        });
-
-        var levelId = "level" + this.props.levelIndex;
-        this.props.onChange(levelId, this.state);
+        this.props.onChange(levelId, name, value);
     }
 
-    handleBranchChange(branchId, branch) {
-        this.setState({
-            [branchId]: branch
-        })
+    handleEnableToggle(branches, emotion, value) {
+        if (value === "true") {
+            var branch = createDefaultBranch(emotion);
+            branches[emotion] = branch;
+        } else {
+            delete branches[emotion];
+        }
+    }
+
+    handleBranchChange(emotion, name, value) {
+        var branches = Object.assign({}, this.props.branches);
+
+        if (name === "enabled") {
+            // this.handleEnableToggle(branches, emotion, value);
+            branches[emotion][name] = value;
+        } else {
+            branches[emotion][name] = value;
+        }
+
+        const levelId = "level" + this.props.levelIndex;
+        this.props.onChange(levelId, "branches", branches);
     }
 
     render() {
-        const index = this.props.levelIndex;
+        const levelIndex = this.props.levelIndex;
+        const levelId = "level" + levelIndex;
+        const branches = this.props.branches;
+
         return (
             // <Panel header="Level {this.props.levelIndex}" eventKey={this.props.levelIndex}>
-                <div className="level" id="level{this.props.levelIndex}">
-                    <h3> Level {this.props.levelIndex} </h3>
+                <div className="level" id={levelId}>
+                    <h3> Level {levelIndex} </h3>
                     <div className="content">
-                        <label> Start Time: </label><input name="start" type="text" placeholder={this.state.start} value={this.state.start} onChange={this.handleLevelInputChange}/>
-                        <label> End Time: </label><input name="end" type="text" placeholder={this.state.end} value={this.state.end} onChange={this.handleLevelInputChange}/>
+                        <label> Start Time: </label>
+                        <input name="start" type="text" placeholder={this.props.start} value={this.props.start} onChange={this.handleLevelInputChange}/>
 
-                        <Branch emotion={branches[0]} parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>,
-                        <Branch emotion={branches[1]} parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>,
-                        <Branch emotion={branches[2]} parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>,
-                        <Branch emotion={branches[3]} parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>,
-                        <Branch emotion={branches[4]} parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>,
-                        <Branch emotion={branches[5]} parentIndex={this.props.levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>
+                        <label> End Time: </label>
+                        <input name="end" type="text" placeholder={this.props.end} value={this.props.end} onChange={this.handleLevelInputChange}/>
+                        
+                        { Object.keys(branches).map((key,_) =>
+                            <Branch emotion={key} value={branches[key]} parentIndex={levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>
+                        )}
                     </div>
                 </div>
             // </Panel>
@@ -201,17 +198,25 @@ class Container extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLevelChange = this.handleLevelChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.removeDisabledBranches = this.removeDisabledBranches.bind(this);
     }
 
     handleInputChange(event) {
         const value = event.target.value;
+        var updatedMedia = this.state.media;
+        updatedMedia[event.target.name] = value;
+
         this.setState({
-            [event.target.name]: value
+            media: updatedMedia
         });
     }
 
-    handleLevelChange(levelId, level) {
+    handleLevelChange(levelId, name, value) {
         var levelsCopy = Object.assign({}, this.state.levels);
+        
+        var level = levelsCopy[levelId];
+        level[name] = value;
+
         levelsCopy[levelId] = level;
 
         this.setState({
@@ -219,26 +224,50 @@ class Container extends React.Component {
         });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        var configJSON = JSON.stringify(this.state, null, 2);
+    removeDisabledBranches() {
+        var updatedLevels = Object.assign({}, this.state.levels);
 
+        Object.keys(updatedLevels).map( function(levelId,_) {
+
+            Object.keys(updatedLevels[levelId].branches).map( function(emotion,_) {
+
+                if (!updatedLevels[levelId].branches[emotion].enabled) {
+                    delete updatedLevels[levelId].branches[emotion];
+                }
+
+            });
+
+        });
+
+        this.setState({
+            levels: updatedLevels
+        });
+    }
+
+    handleSubmit(event) {
+        this.removeDisabledBranches();
+        event.preventDefault();
+
+        var configJSON = JSON.stringify(this.state, null, 2);
+        // alert(configJSON);
         var blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(blob, "config.json");
-
     }
 
     render() {
-        const refName = (num) => ("level" + num);
+        const levels = this.state.levels;
+        const video = this.state.media.video;
+        const audio = this.state.media.audio;
+
         return (
             <div id="container">
                 <form onSubmit={this.handleSubmit}>
-                    <label>Video File: </label> <input name="video" type="text" value={this.state.media.video} placeholder={this.state.media.video} onChange={this.handleInputChange}/>
-                    <label>Audio File: </label> <input name="audio" type="text"  value={this.state.media.audio} placeholder={this.state.media.audio} onChange={this.handleInputChange}/>
+                    <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video} onChange={this.handleInputChange}/>
+                    <label>Audio File: </label> <input name="audio" type="text"  value={audio} placeholder={audio} onChange={this.handleInputChange}/>
                     <br/>
                     <div>
-                        { Array(this.props.numLevels).fill().map((_,index) =>
-                            <Level levelIndex={index+1} numLevels={this.props.numLevels} onChange={this.handleLevelChange}/>
+                        { Object.keys(levels).map((levelId,_) =>
+                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels} onChange={this.handleLevelChange} start={levels[levelId].start} end={levels[levelId].end} branches={levels[levelId].branches}/>
                         )}
                     </div>
                     <Button type="submit" name="export" bsStyle="primary">Export</Button>
