@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
-var Accordion = require('react-bootstrap').Accordion;
-var Panel = require('react-bootstrap').Panel;
+// var Accordion = require('react-bootstrap').Accordion;
+// var Panel = require('react-bootstrap').Panel;
 var Button = require('react-bootstrap').Button;
 var FileSaver = require('file-saver');
 
@@ -14,26 +14,21 @@ const defaults = {
     audioPath: "audio/file/path"
 }
 
-function createDefaultBranch(emotion) {
-    var branch = new Object();
-    branch.start = defaults.time;
-    branch.end = defaults.time;
-    branch.enabled = defaults.enabled;
-    branch.outcome = null;    
-    return branch;
+const createDefaultBranch = () => {
+    return {
+                start: defaults.time,
+                end: defaults.time,
+                enabled: defaults.enabled,
+                outcome: null
+        };
 }
 
-
-function createDefaultBranchesObject() {
-    const branches = ["anger", "fear", "calm", "disgust", "contempt", "surprise"];
-    var populatedBranches = new Object();
-
-    for (var i=0; i<branches.length;i++) {
-        var branch = createDefaultBranch(branches[i]);
-        populatedBranches[branches[i]] = branch;
-    }
-
-    return populatedBranches;
+const createDefaultBranchesObject = () => {
+    const emotions = ["anger", "fear", "calm", "disgust", "contempt", "surprise"];
+    
+    let branches = {}
+    emotions.forEach((emotion) => branches[emotion] = createDefaultBranch());
+    return branches;
 }
 
 function createDefaultLevelsObject(numLevels) {
@@ -121,7 +116,6 @@ class Level extends React.Component {
         super(props);
         this.handleLevelInputChange = this.handleLevelInputChange.bind(this);
         this.handleBranchChange = this.handleBranchChange.bind(this);
-        this.handleEnableToggle = this.handleEnableToggle.bind(this);
     }
 
     handleLevelInputChange(event) {
@@ -130,15 +124,6 @@ class Level extends React.Component {
         const levelId = "level" + this.props.levelIndex;
 
         this.props.onChange(levelId, name, value);
-    }
-
-    handleEnableToggle(branches, emotion, value) {
-        if (value === "true") {
-            var branch = createDefaultBranch(emotion);
-            branches[emotion] = branch;
-        } else {
-            delete branches[emotion];
-        }
     }
 
     handleBranchChange(emotion, name, value) {
