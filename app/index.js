@@ -6,8 +6,6 @@ var Accordion = require('react-bootstrap').Accordion;
 var Panel = require('react-bootstrap').Panel;
 var Button = require('react-bootstrap').Button;
 var FileSaver = require('file-saver');
-var ReactBootstrapSlider = require('react-bootstrap-slider');
-
 
 const defaults = {
     time: "00:00.000",
@@ -86,8 +84,12 @@ class Branch extends React.Component {
         if (branch.enabled) {
             return (
                 <div>
-                    <label> Start Time: </label> <input name="start" type="text" label="start time" placeholder={branch.start} value={branch.start} onChange={this.handleBranchInputChange}/>
-                    <label> End Time: </label> <input name="end" type="text" label="end time" placeholder={branch.end} value={branch.end} onChange={this.handleBranchInputChange}/>
+                    <label> Start Time: </label> 
+                    <input name="start" type="text" placeholder={branch.start} value={branch.start} onChange={this.handleBranchInputChange}/>
+
+                    <label> End Time: </label> 
+                    <input name="end" type="text" placeholder={branch.end} value={branch.end} onChange={this.handleBranchInputChange}/>
+
                     <select name="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
                         { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
                     </select>
