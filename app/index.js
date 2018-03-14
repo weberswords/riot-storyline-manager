@@ -16,11 +16,11 @@ const defaults = {
 
 const createDefaultBranch = () => {
     return {
-                start: defaults.time,
-                end: defaults.time,
-                enabled: defaults.enabled,
-                outcome: null
-        };
+        start: defaults.time,
+        end: defaults.time,
+        enabled: defaults.enabled,
+        outcome: null
+    };
 }
 
 const createDefaultBranchesObject = () => {
@@ -31,21 +31,19 @@ const createDefaultBranchesObject = () => {
     return branches;
 }
 
-function createDefaultLevelsObject(numLevels) {
-    var populatedLevels = new Object();
+const createDefaultLevelsObject = (numLevels) => {
+    const populatedLevels = {};
 
-    for (var i=1; i<=numLevels;i++) {
-        var levelId = "level" + i;
-        var level = new Object();
-
-        level.index = i;
-        level.start = defaults.time;
-        level.end = defaults.time;
-        level.branches = createDefaultBranchesObject();
-
-        populatedLevels[levelId] = level;
+    for (let i = 1; i <= numLevels; i++) {
+        const levelId = "level" + i;
+        
+        populatedLevels[levelId] =  {
+            index: i,
+            start: defaults.time,
+            end: defaults.time,
+            branches: createDefaultBranchesObject()
+        };
     }
-
     return populatedLevels;
 }
 
@@ -58,12 +56,17 @@ class Branch extends React.Component {
     constructor(props) {
         super(props);
         this.handleBranchInputChange = this.handleBranchInputChange.bind(this);
+        this.handleToggle = this.handleToggle.bind(this);
     }
 
     handleBranchInputChange(event) {
         const name = event.target.name;
-        const value = event.target.name === "enabled" ? !this.props.value.enabled : event.target.value;
+        const value = event.target.value;
         this.props.onChange(this.props.emotion, name, value);
+    }
+
+    handleToggle() {
+        this.props.onChange(this.props.emotion, "enabled", !this.props.value.enabled);
     }
 
     getOtherLevelIndices() {
@@ -98,7 +101,7 @@ class Branch extends React.Component {
         return(
             <div>
                 <h6> {this.props.emotion} Branch </h6>
-                <input type="checkbox" name="enabled" bsStyle="primary" bsSize="large" onClick={this.handleBranchInputChange}/><span> Disable </span>
+                <input type="checkbox" name="enabled" bsStyle="primary" bsSize="large" onClick={this.handleToggle}/><span> Disable </span>
                 { this.branch() }
             </div>
         );
