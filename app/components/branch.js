@@ -54,6 +54,7 @@ export default class Branch extends React.Component {
                 <h6> {this.props.emotion} Branch </h6>
                 <input type="checkbox" name="enabled" bsStyle="primary" bsSize="large" onClick={this.handleToggle}/><span> Disable </span>
                 { this.branch() }
+                <br/>
             </div>
         );
     }

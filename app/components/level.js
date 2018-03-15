@@ -48,6 +48,7 @@ export default class Level extends React.Component {
                             <Branch emotion={key} value={branches[key]} parentIndex={levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>
                         )}
                     </div>
+                    <br/>
                 </div>
             // </Panel>
         );

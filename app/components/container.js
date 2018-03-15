@@ -4,6 +4,8 @@ import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Level from './level.js';
 import TimeRange from './timeRange.js';
 
+import styles from '../style/index.css';
+
 // let Accordion = require('react-bootstrap').Accordion;
 // let Panel = require('react-bootstrap').Panel;
 let Button = require('react-bootstrap').Button;
@@ -171,11 +173,15 @@ export default class Container extends React.Component {
         return (
             <div id="container">
                 <form onSubmit={this.handleSubmit}>
-                    <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video} onChange={this.handleMediaInputChange}/>
-                    <label>Audio File: </label> <input name="audio" type="text"  value={audio} placeholder={audio} onChange={this.handleMediaInputChange}/>
+                    <div name="media">
+                        <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video} onChange={this.handleMediaInputChange}/>
+                        <label>Audio File: </label> <input name="audio" type="text"  value={audio} placeholder={audio} onChange={this.handleMediaInputChange}/>
+                    </div>
                     <br/>
-
+                    <br/>
                     <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
+                    <br/>
+                    <br/>
                     <div> 
                         { Object.keys(intros).map((timeRangeId,_) =>
                             <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start, intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
@@ -194,7 +200,7 @@ export default class Container extends React.Component {
                             <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start, credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
                         )}
                     </div>
-
+                    <br/>
                     <Button type="submit" name="export" bsStyle="primary">Export</Button>
                 </form>
             </div>
