@@ -173,7 +173,7 @@ export default class Container extends React.Component {
         return (
             <div id="container">
                 <form onSubmit={this.handleSubmit}>
-                    <div name="media">
+                    <div id="media">
                         <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video} onChange={this.handleMediaInputChange}/>
                         <label>Audio File: </label> <input name="audio" type="text"  value={audio} placeholder={audio} onChange={this.handleMediaInputChange}/>
                     </div>

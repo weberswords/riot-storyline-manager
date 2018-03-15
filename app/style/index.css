@@ -4,8 +4,13 @@ body {
 
 h1 {
 	text-align: center;
+	padding: 2%;
 }
 
-div#app {
+#app {
 	padding: 6%;
+}
+
+#media {
+	text-align: center;
 }

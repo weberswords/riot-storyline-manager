@@ -4,8 +4,13 @@ body {
 
 h1 {
 	text-align: center;
+	padding: 2%;
 }
 
 div#app {
 	padding: 6%;
+}
+
+div#media {
+	text-align: center;
 }
