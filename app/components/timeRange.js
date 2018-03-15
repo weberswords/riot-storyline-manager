@@ -21,13 +21,14 @@ export default class TimeRange extends React.Component {
 	}
 
 	render() {
+
 		return (
 			<div>
 				<label> Start Time: &nbsp;</label>
-                <input name="start" id="timeRange" type="text" placeholder={this.props.range[0]} value={this.props.range[0]} onChange={this.handleInputChange}/>
+                <input name="start" id="timeRange" type="text" placeholder="00:00.000" value={this.props.range[0]} onChange={this.handleInputChange}/>
 
                 <label> &nbsp;End Time: &nbsp;</label>
-                <input name="end" id="timeRange" type="text" placeholder={this.props.range[1]} value={this.props.range[1]} onChange={this.handleInputChange}/>
+                <input name="end" id="timeRange" type="text" placeholder="00:00.000" value={this.props.range[1]} onChange={this.handleInputChange}/>
 			</div>
 		);
 	}

@@ -36,9 +36,9 @@ export default class Branch extends React.Component {
         if (outcomeNumber == 0) {
             return "Credits";
         }
-
+        
         else {
-            return "Level " + outcomeNumber
+            return "Level " + outcomeNumber;
         }
     }
 
@@ -51,7 +51,6 @@ export default class Branch extends React.Component {
                 <div>
         
                     <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange}/>
-
                     <select name="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
                         { otherLevelIndices.map((i) => <option value={i}> {this.processOutcomeListText(i)}</option>) }
                     </select>
