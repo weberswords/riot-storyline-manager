@@ -24,9 +24,22 @@ export default class Branch extends React.Component {
     }
 
     getOtherLevelIndices() {
-        return Array(this.props.numLevels).fill()
-                                          .map((_, i) => i+1)
+        let outcomeList = Array(this.props.numLevels).fill()
+                                          .map((_, i) => i + 1)
                                           .filter(index => index !== this.props.parentIndex);
+        outcomeList.push(0);
+
+        return outcomeList;
+    }
+
+    processOutcomeListText(outcomeNumber) {
+        if (outcomeNumber == 0) {
+            return "Credits";
+        }
+
+        else {
+            return "Level " + outcomeNumber
+        }
     }
 
     branch() {
@@ -40,7 +53,7 @@ export default class Branch extends React.Component {
                     <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange}/>
 
                     <select name="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
-                        { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }
+                        { otherLevelIndices.map((i) => <option value={i}> {this.processOutcomeListText(i)}</option>) }
                     </select>
                 </div>
             );
@@ -51,7 +64,7 @@ export default class Branch extends React.Component {
     render() {
         return(
             <div>
-                <h6> {this.props.emotion} Branch </h6>
+                <h5> {this.props.emotion} Branch </h5>
                 <input type="checkbox" name="enabled" bsStyle="primary" bsSize="large" onClick={this.handleToggle}/><span> Disable </span>
                 { this.branch() }
                 <br/>

@@ -28,7 +28,7 @@ const createDefaultBranch = () => {
 }
 
 const createDefaultBranchesObject = () => {
-    const emotions = ["anger", "fear", "calm", "disgust", "contempt", "surprise"];
+    const emotions = ["Anger", "Fear", "Calm", "Disgust", "Contempt", "Surprise"];
     
     let branches = {}
     emotions.forEach((emotion) => branches[emotion] = createDefaultBranch());
@@ -177,7 +177,6 @@ export default class Container extends React.Component {
                         <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video} onChange={this.handleMediaInputChange}/>
                         <label>Audio File: </label> <input name="audio" type="text"  value={audio} placeholder={audio} onChange={this.handleMediaInputChange}/>
                     </div>
-                    <br/>
                     <br/>
                     <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
                     <br/>

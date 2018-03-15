@@ -49,6 +49,8 @@ export default class Level extends React.Component {
                         )}
                     </div>
                     <br/>
+                    <br/>
+
                 </div>
             // </Panel>
         );

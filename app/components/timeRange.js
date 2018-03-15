@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
+import styles from '../style/index.css';
+
 export default class TimeRange extends React.Component {
 	constructor(props) {
 		super(props);
@@ -21,11 +23,11 @@ export default class TimeRange extends React.Component {
 	render() {
 		return (
 			<div>
-				<label> Start Time: </label> 
-                <input name="start" type="text" placeholder={this.props.range[0]} value={this.props.range[0]} onChange={this.handleInputChange}/>
+				<label> Start Time: &nbsp;</label>
+                <input name="start" id="timeRange" type="text" placeholder={this.props.range[0]} value={this.props.range[0]} onChange={this.handleInputChange}/>
 
-                <label> End Time: </label> 
-                <input name="end" type="text" placeholder={this.props.range[1]} value={this.props.range[1]} onChange={this.handleInputChange}/>
+                <label> &nbsp;End Time: &nbsp;</label>
+                <input name="end" id="timeRange" type="text" placeholder={this.props.range[1]} value={this.props.range[1]} onChange={this.handleInputChange}/>
 			</div>
 		);
 	}

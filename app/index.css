@@ -14,3 +14,7 @@ div#app {
 div#media {
 	text-align: center;
 }
+
+#timeRange {
+    width: 40px;
+}
