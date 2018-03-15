@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import TimeRange from './timeRange.js';
 
 export default class Branch extends React.Component {
     constructor(props) {
         super(props);
         this.handleBranchInputChange = this.handleBranchInputChange.bind(this);
+        this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
+    }
+
+    handleTimeRangeChange(name, value) {
+        this.props.onChange(this.props.emotion, name, value);
     }
 
     handleBranchInputChange(event) {
@@ -30,11 +36,8 @@ export default class Branch extends React.Component {
         if (branch.enabled) {
             return (
                 <div>
-                    <label> Start Time: </label> 
-                    <input name="start" type="text" placeholder={branch.start} value={branch.start} onChange={this.handleBranchInputChange}/>
-
-                    <label> End Time: </label> 
-                    <input name="end" type="text" placeholder={branch.end} value={branch.end} onChange={this.handleBranchInputChange}/>
+        
+                    <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange}/>
 
                     <select name="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
                         { otherLevelIndices.map((i) => <option value={i}>Level {i}</option>) }

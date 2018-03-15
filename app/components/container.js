@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Level from './level.js';
+import Slides from './slides.js';
 
 // let Accordion = require('react-bootstrap').Accordion;
 // let Panel = require('react-bootstrap').Panel;
@@ -64,7 +65,9 @@ export default class Container extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLevelChange = this.handleLevelChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleIntroChange = this.handleIntroChange.bind(this);
         this.removeDisabledBranches = this.removeDisabledBranches.bind(this);
+        this.addIntroSlide = this.addIntroSlide.bind(this);
     }
 
     handleInputChange(event) {
@@ -79,10 +82,35 @@ export default class Container extends React.Component {
 
     handleLevelChange(levelId, name, value) {
         let levelsCopy = Object.assign({}, this.state.levels);
-        levelsCopy[levelId][name] = value
+
+        if (name === "range") {
+            levelsCopy[levelId].start = value[0];
+            levelsCopy[levelId].end = value[1];
+        }
+        else {
+            levelsCopy[levelId][name] = value;
+        }
 
         this.setState({
             levels: levelsCopy
+        });
+    }
+
+    handleIntroChange(slideId, name, value) {
+        let introCopy = Object.assign({}, this.state.intros);
+        introCopy[slideId][name] = value;
+
+        this.setState({
+            intros: introCopy
+        });
+    }
+
+    addIntroSlide(slideId, slide) {
+        let introCopy = Object.assign({}, this.state.intros);
+        introCopy[slideId] = slide;
+
+        this.setState({
+            intros: introCopy
         });
     }
 
@@ -128,8 +156,11 @@ export default class Container extends React.Component {
                     <label>Audio File: </label> <input name="audio" type="text"  value={audio} placeholder={audio} onChange={this.handleInputChange}/>
                     <br/>
                     <div>
+                        <Slides name="intros" add={this.addIntroSlide} onChange={this.handleIntroChange}/>
+                    </div>
+                    <div>
                         { Object.keys(levels).map((levelId,_) =>
-                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels} onChange={this.handleLevelChange} start={levels[levelId].start} end={levels[levelId].end} branches={levels[levelId].branches}/>
+                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels} onChange={this.handleLevelChange} range={[levels[levelId].start,levels[levelId].end]} branches={levels[levelId].branches}/>
                         )}
                     </div>
                     <Button type="submit" name="export" bsStyle="primary">Export</Button>
