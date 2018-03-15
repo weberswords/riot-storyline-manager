@@ -1,7 +1,5 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ReactBootstrapSlider = require('react-bootstrap-slider');
-var FileSaver = require('file-saver');
 
 module.exports = {
     entry: "./app/index.js",
