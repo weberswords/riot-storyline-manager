@@ -11,7 +11,8 @@ export default class TimeRange extends React.Component {
 	}
 
 	handleInputChange(event) {
-		const value = event.target.name === "start" ? [event.target.value, this.props.range[1]] : [this.props.range[0], event.target.value];
+		const value = event.target.name === "start" ? [event.target.value, this.props.range[1]] :
+		                                              [this.props.range[0], event.target.value];
 
 		if (this.props.name === "intros" || this.props.name === "credits") {
 			this.props.onChange(this.props.name, this.props.id, value);
@@ -25,10 +26,12 @@ export default class TimeRange extends React.Component {
 		return (
 			<div>
 				<label> Start Time: &nbsp;</label>
-                <input name="start" id="timeRange" type="text" placeholder="00:00.000" value={this.props.range[0]} onChange={this.handleInputChange}/>
+                <input name="start" id="timeRange" type="text" placeholder="00:00.000" value={this.props.range[0]}
+                       onChange={this.handleInputChange}/>
 
                 <label> &nbsp;End Time: &nbsp;</label>
-                <input name="end" id="timeRange" type="text" placeholder="00:00.000" value={this.props.range[1]} onChange={this.handleInputChange}/>
+                <input name="end" id="timeRange" type="text" placeholder="00:00.000" value={this.props.range[1]}
+                       onChange={this.handleInputChange}/>
 			</div>
 		);
 	}

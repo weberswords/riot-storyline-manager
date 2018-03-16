@@ -45,12 +45,10 @@ export default class Level extends React.Component {
                         <TimeRange name="range" range={this.props.range} onChange={this.handleTimeRangeChange} />
                         
                         { Object.keys(branches).map((key,_) =>
-                            <Branch emotion={key} value={branches[key]} parentIndex={levelIndex} numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>
+                            <Branch emotion={key} value={branches[key]} parentIndex={levelIndex}
+                                    numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>
                         )}
                     </div>
-                    <br/>
-                    <br/>
-
                 </div>
             // </Panel>
         );

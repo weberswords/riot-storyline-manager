@@ -8,10 +8,13 @@ h1 {
 }
 
 #app {
-	padding: 6%;
-	padding-top: 2%;
+	padding: 0 0 0 6%;
 }
 
 #media {
 	text-align: center;
+}
+
+input#timeRange {
+    width: 7.5%;
 }

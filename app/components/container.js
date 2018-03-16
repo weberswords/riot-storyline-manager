@@ -174,8 +174,10 @@ export default class Container extends React.Component {
             <div id="container">
                 <form onSubmit={this.handleSubmit}>
                     <div id="media">
-                        <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video} onChange={this.handleMediaInputChange}/>
-                        <label>Audio File: </label> <input name="audio" type="text"  value={audio} placeholder={audio} onChange={this.handleMediaInputChange}/>
+                        <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video}
+                               onChange={this.handleMediaInputChange}/>
+                        <label>&nbsp;Audio File: </label> <input name="audio" type="text"  value={audio}
+                               placeholder={audio} onChange={this.handleMediaInputChange}/>
                     </div>
                     <br/>
                     <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
@@ -183,20 +185,24 @@ export default class Container extends React.Component {
                     <br/>
                     <div> 
                         { Object.keys(intros).map((timeRangeId,_) =>
-                            <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start, intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                            <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
+                                       intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
                         )}
                     </div>
 
                     <div>
                         { Object.keys(levels).map((levelId,_) =>
-                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels} onChange={this.handleLevelChange} range={[levels[levelId].start,levels[levelId].end]} branches={levels[levelId].branches}/>
+                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
+                                   onChange={this.handleLevelChange} range={[levels[levelId].start,levels[levelId].end]}
+                                   branches={levels[levelId].branches}/>
                         )}
                     </div>
 
                     <Button name="credits" bsStyle="primary" onClick={this.addSlide}>Add Credit Slide</Button>
                     <div> 
                         { Object.keys(credits).map((timeRangeId,_) =>
-                            <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start, credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                            <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
+                                       credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
                         )}
                     </div>
                     <br/>

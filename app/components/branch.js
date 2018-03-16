@@ -51,6 +51,7 @@ export default class Branch extends React.Component {
                 <div>
         
                     <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange}/>
+                    Outcome:&nbsp;
                     <select name="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
                         { otherLevelIndices.map((i) => <option value={i}> {this.processOutcomeListText(i)}</option>) }
                     </select>
