@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Level from './level.js';
 import TimeRange from './timeRange.js';
+import Collapsible from 'react-collapsible';
 
 import styles from '../style/index.css';
 
@@ -173,13 +174,15 @@ export default class Container extends React.Component {
         return (
             <div id="container">
                 <form onSubmit={this.handleSubmit}>
+                    <Collapsible trigger="Media">
                     <div id="media">
                         <label>Video File: </label> <input name="video" type="text" value={video} placeholder={video}
                                onChange={this.handleMediaInputChange}/>
                         <label>&nbsp;Audio File: </label> <input name="audio" type="text"  value={audio}
                                placeholder={audio} onChange={this.handleMediaInputChange}/>
                     </div>
-                    <br/>
+                    </Collapsible>
+                    <Collapsible trigger="Intro">
                     <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
                     <br/>
                     <br/>
@@ -189,7 +192,7 @@ export default class Container extends React.Component {
                                        intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
                         )}
                     </div>
-
+                    </Collapsible>
                     <div>
                         { Object.keys(levels).map((levelId,_) =>
                             <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
@@ -197,7 +200,7 @@ export default class Container extends React.Component {
                                    branches={levels[levelId].branches}/>
                         )}
                     </div>
-
+                    <Collapsible trigger="Credits">
                     <Button name="credits" bsStyle="primary" onClick={this.addSlide}>Add Credit Slide</Button>
                     <div> 
                         { Object.keys(credits).map((timeRangeId,_) =>
@@ -205,6 +208,7 @@ export default class Container extends React.Component {
                                        credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
                         )}
                     </div>
+                    </Collapsible>
                     <br/>
                     <Button type="submit" id="exportButton" name="export" bsStyle="primary">Export</Button>
                 </form>

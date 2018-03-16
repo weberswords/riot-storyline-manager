@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Branch from './branch.js';
 import TimeRange from './timeRange.js';
+import Collapsible from 'react-collapsible';
 
 export default class Level extends React.Component {
     constructor(props) {
@@ -36,11 +37,11 @@ export default class Level extends React.Component {
         const levelIndex = this.props.levelIndex;
         const levelId = "level" + levelIndex;
         const branches = this.props.branches;
+        const triggerName = "Level " + levelIndex;
 
         return (
-            // <Panel header="Level {this.props.levelIndex}" eventKey={this.props.levelIndex}>
                 <div className="level" id={levelId}>
-                    <h3> Level {levelIndex} </h3>
+                    <Collapsible trigger={triggerName}>
                     <div className="content">
                         <TimeRange name="range" range={this.props.range} onChange={this.handleTimeRangeChange} />
                         
@@ -49,8 +50,8 @@ export default class Level extends React.Component {
                                     numLevels={this.props.numLevels} onChange={this.handleBranchChange}/>
                         )}
                     </div>
+                    </Collapsible>
                 </div>
-            // </Panel>
         );
     }
 }
