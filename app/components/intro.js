@@ -42,8 +42,12 @@ export default class Intro extends React.Component {
 			return(
 				<div id="intro">
 					<form onSubmit={this.handleIntroSubmit}>
-						<label>How many levels? </label><input type="number" name="numLevels" value={this.state.numLevels} placeholder={this.state.numLevels} onChange={this.handleInputChange}/><br/>
-						<label>How many frames per second is your video? </label><input type="number" name="numFrames" value={this.state.numFrames} placeholder={this.state.numFrames} onChange={this.handleInputChange}/><br/>
+						<label>How many levels? &nbsp; </label><input type="number" name="numLevels"
+						       value={this.state.numLevels} placeholder={this.state.numLevels}
+						       onChange={this.handleInputChange}/><br/>
+						<label>How many frames per second is your video? &nbsp; </label><input type="number"
+						       name="numFrames" value={this.state.numFrames} placeholder={this.state.numFrames}
+						       onChange={this.handleInputChange}/><br/>
 						<Button bsStyle="primary" type="submit">Start Configuring!</Button>
 					</form>
 				</div>
@@ -51,7 +55,7 @@ export default class Intro extends React.Component {
 		} else {
 			return(		
 				<div>		
-					<Button name="goBack" bsStyle="primary" onClick={this.goBack}>Go Back</Button>
+					<Button name="goBack" bsStyle="primary" id="backButton" onClick={this.goBack}>Go Back</Button>
 					<Container numLevels={this.state.numLevels} numFrames={this.state.numFrames} />
 				</div>
 			);

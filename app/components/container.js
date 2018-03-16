@@ -7,8 +7,6 @@ import Collapsible from 'react-collapsible';
 
 import styles from '../style/index.css';
 
-// let Accordion = require('react-bootstrap').Accordion;
-// let Panel = require('react-bootstrap').Panel;
 let Button = require('react-bootstrap').Button;
 let FileSaver = require('file-saver');
 
@@ -160,7 +158,6 @@ export default class Container extends React.Component {
         event.preventDefault();
 
         let configJSON = JSON.stringify(stateCopy, null, 2);
-        // alert(configJSON);
         let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(blob, "config.json");
     }
@@ -201,7 +198,7 @@ export default class Container extends React.Component {
                         </div>
                     </Collapsible>
                     <br/>
-                    <Button type="submit" id="exportButton" name="export" bsStyle="primary">Export</Button>
+                    <Button type="submit" name="export" bsStyle="primary">Export</Button>
                 </form>
             </div>
         );

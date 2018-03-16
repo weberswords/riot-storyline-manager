@@ -7,6 +7,13 @@ h1 {
 	text-align: center;
 }
 
+.btn-primary {
+    background-color: #4169E1;
+    border-color: #4169E1;
+    border-radius: 0;
+    box-shadow: 1px 1px 1px grey;
+}
+
 #app {
 	padding: 0 6% 6% 6%;
 }
@@ -20,11 +27,11 @@ h1 {
 }
 
 input#timeRange {
-    width: 7.5%;
+    width: 8%;
 }
 
 select#outcome {
-    background-color: #007bff;
+    background-color: #4169E1;
     border-radius: 5px;
     color: #fff;
     height: 30px;
@@ -39,13 +46,13 @@ div#timeRangeDiv {
     padding-left: 3%;
 }
 
-#exportButton {
-    font-size: 20px;
+#backButton {
+    margin-bottom: 2%;
 }
 
 /* start of collapsible*/
 .Collapsible {
-  background-color: #007bff;
+  background-color: #4169E1;
 }
 
 .Collapsible__contentInner {
@@ -73,9 +80,7 @@ div#timeRangeDiv {
   position: relative;
   border: 1px solid white;
   padding: 10px;
-  background: $cyan;
   color: white;
-
 
   &:after {
     font-family: 'FontAwesome';
@@ -114,3 +119,4 @@ div#timeRangeDiv {
   background-color: #CBB700;
   color: black;
 }
+/*end of Collapsible*/
