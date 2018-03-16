@@ -15,6 +15,10 @@ h1 {
 	text-align: center;
 }
 
+#intro {
+    padding: 20%;
+}
+
 input#timeRange {
     width: 7.5%;
 }
