@@ -24,7 +24,7 @@ export default class TimeRange extends React.Component {
 	render() {
 
 		return (
-			<div>
+			<div id="timeRangeDiv">
 				<label> Start Time: &nbsp;</label>
                 <input name="start" id="timeRange" type="text" placeholder="00:00.000" value={this.props.range[0]}
                        onChange={this.handleInputChange}/>

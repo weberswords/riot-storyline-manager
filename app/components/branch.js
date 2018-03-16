@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import TimeRange from './timeRange.js';
 
+import styles from '../style/index.css';
+
 export default class Branch extends React.Component {
     constructor(props) {
         super(props);
@@ -52,7 +54,7 @@ export default class Branch extends React.Component {
         
                     <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange}/>
                     Outcome:&nbsp;
-                    <select name="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
+                    <select name="outcome" id="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
                         { otherLevelIndices.map((i) => <option value={i}> {this.processOutcomeListText(i)}</option>) }
                     </select>
                 </div>
@@ -63,7 +65,7 @@ export default class Branch extends React.Component {
 
     render() {
         return(
-            <div>
+            <div id="branch">
                 <h5> {this.props.emotion} Branch </h5>
                 <input type="checkbox" name="enabled" bsStyle="primary" bsSize="large" onClick={this.handleToggle}/><span> Disable </span>
                 { this.branch() }

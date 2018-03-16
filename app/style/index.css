@@ -3,12 +3,12 @@ body {
 }
 
 h1 {
-	text-align: center;
 	padding-top: 2%;
+	text-align: center;
 }
 
 #app {
-	padding: 0 0 0 6%;
+	padding: 0 0 6% 6%;
 }
 
 #media {
@@ -17,4 +17,24 @@ h1 {
 
 input#timeRange {
     width: 7.5%;
+}
+
+select#outcome {
+    background-color: #007bff;
+    border-radius: 5px;
+    color: #fff;
+    height: 30px;
+    margin-top: 5px;
+}
+
+div#branch {
+    padding-left: 6%;
+}
+
+div#timeRangeDiv {
+    padding-left: 3%;
+}
+
+#exportButton {
+    font-size: 20px;
 }

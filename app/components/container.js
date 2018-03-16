@@ -206,7 +206,7 @@ export default class Container extends React.Component {
                         )}
                     </div>
                     <br/>
-                    <Button type="submit" name="export" bsStyle="primary">Export</Button>
+                    <Button type="submit" id="exportButton" name="export" bsStyle="primary">Export</Button>
                 </form>
             </div>
         );
