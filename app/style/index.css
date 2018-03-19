@@ -40,6 +40,22 @@ h1 {
     margin-top: 1%;
 }
 
+#deleteSlide1 {
+    text-align:left;
+}
+
+#deleteSlide2 {
+    text-align:left;
+}
+
+#deleteButton1, #timeRangeDiv {
+    display:inline;
+}
+
+#deleteButton2, #timeRangeDiv {
+    display:inline;
+}
+
 input#timeRange {
     width: 8%;
 }
