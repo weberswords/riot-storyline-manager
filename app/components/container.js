@@ -50,7 +50,7 @@ export default class Container extends React.Component {
     }
 
     handleTimeRangeChange(stateType, id, value) {
-        let slidesCopy = Object.assign({}, this.state[stateType]);
+        let slidesCopy = JSON.parse(JSON.stringify(this.state[stateType]));
 
         slidesCopy[id] = {
             start: value[0],
@@ -63,7 +63,7 @@ export default class Container extends React.Component {
     }
 
     handleLevelChange(levelId, name, value) {
-        let levelsCopy = Object.assign({}, this.state.levels);
+        let levelsCopy = JSON.parse(JSON.stringify(this.state.levels));
 
         if (name === "range") {
             levelsCopy[levelId].start = value[0];
@@ -80,7 +80,7 @@ export default class Container extends React.Component {
 
     addSlide(event) {
         let stateType = event.target.name; // credits or intros
-        let slidesCopy = Object.assign({}, this.state[stateType]);
+        let slidesCopy = JSON.parse(JSON.stringify(this.state[stateType]));
 
         const timeRangeId = Object.keys(slidesCopy).length;
 
