@@ -26,7 +26,7 @@ const trimStateAndCopy = (state) => {
     Object.keys(state.levels).map( function(levelId,_) {
 
         Object.keys(state.levels[levelId].branches).map( function(emotion,_) {
-
+            
             if (!state.levels[levelId].branches[emotion].enabled) {
                 state.levels[levelId].branches[emotion] = undefined;
             } else {

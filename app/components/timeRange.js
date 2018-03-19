@@ -24,14 +24,6 @@ export default class TimeRange extends React.Component {
 
 		return (
 			<div id="timeRangeDiv">
-				<form>
-					<FormGroup controlId="formTimeRange" validationState="error">
-				        <ControlLabel>Working example with validation</ControlLabel>
-				        <FormControl type="text" name="start" value={this.props.range[0]} placeholder="Enter text" onChange={this.handleInputChange}/>
-				        <FormControl.Feedback />
-				        <HelpBlock>Validation is based on string length.</HelpBlock>
-				    </FormGroup>
-			    </form>
 				<label> &nbsp; Start Time: &nbsp;</label>
                 <input name="start" id="timeRange" type="text" placeholder="00:00.00" value={this.props.range[0]}
                        onChange={this.handleInputChange}/>
