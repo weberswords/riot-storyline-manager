@@ -82,9 +82,17 @@ export default class Container extends React.Component {
         const stateType = event.target.name; // credits or intros
         let slidesCopy = JSON.parse(JSON.stringify(this.state[stateType]));
 
-        const timeRangeId = Object.keys(slidesCopy).length;
+        const stateTypes = this.state[stateType];
+        let timeRangeId = null;
 
-        slidesCopy[timeRangeId] = {
+        if (Object.keys(stateTypes).length < 1) {
+            timeRangeId = -1;
+        }
+        else {
+            timeRangeId = Object.keys(stateTypes).reduce((a, b) => stateTypes[a] > stateTypes[b] ? a : b);
+        }
+
+        slidesCopy[parseInt(timeRangeId) + 1] = {
             start: defaultValues.time,
             end: defaultValues.time
         };
@@ -97,9 +105,16 @@ export default class Container extends React.Component {
     deleteSlide(event) {
         const stateType = event.target.name; // credits or intros
         const key = event.target.id;
-        let slidesCopy = Object.assign({}, this.state[stateType]);
+        let slidesCopy = {};
+        const allKeys = Object.keys(this.state[stateType]);
 
-        delete slidesCopy[key];
+        for (const oneKey of allKeys) {
+            if (oneKey != key) {
+                slidesCopy[oneKey] = this.state[stateType][oneKey];
+            }
+            else {
+            }
+        }
 
         this.setState({
             [stateType]: slidesCopy
