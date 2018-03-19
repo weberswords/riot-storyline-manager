@@ -16,6 +16,7 @@ h1 {
     background-color: var(--main-color);
     border-color: var(--main-color);
     box-shadow: 1px 1px 1px grey;
+    margin-bottom: 1%;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
@@ -53,14 +54,6 @@ select#outcome:hover {
 
 div#branch {
     padding-left: 6%;
-}
-
-div#timeRangeDiv {
-    padding-left: 3%;
-}
-
-#backButton {
-    margin-bottom: 2%;
 }
 
 /* start of collapsible*/

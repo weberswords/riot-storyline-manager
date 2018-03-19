@@ -34,6 +34,8 @@ export default class Container extends React.Component {
         // SLIDE CHANGES
         this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
         this.addSlide = this.addSlide.bind(this);
+        this.deleteSlide = this.deleteSlide.bind(this);
+
 
         // EXPORT
         this.handleExport = this.handleExport.bind(this);
@@ -100,11 +102,23 @@ export default class Container extends React.Component {
 
         console.log(this.state);
 
-        event.preventDefault();
+                event.preventDefault();
 
-        let configJSON = JSON.stringify(stateCopy, null, 2);
-        let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
-        FileSaver.saveAs(blob, "config.json");
+                let configJSON = JSON.stringify(stateCopy, null, 2);
+                let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
+                FileSaver.saveAs(blob, "config.json");
+    }
+
+    deleteSlide(event) {
+        const stateType = event.target.name; // credits or intros
+        const key = event.target.id;
+        let slidesCopy = Object.assign({}, this.state[stateType]);
+
+        delete slidesCopy[key];
+
+        this.setState({
+            [stateType]: slidesCopy
+        });
     }
 
     render() {
@@ -117,27 +131,40 @@ export default class Container extends React.Component {
                 <Collapsible trigger="Intro">
                     <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
                     <br/>
-                    <br/>
-                    <div> 
-                        { Object.keys(intros).map((timeRangeId,_) =>
-                            <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
-                                       intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
-                        )}
-                    </div>
-                    </Collapsible>
                     <div>
-                        { Object.keys(levels).map((levelId,_) =>
-                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
-                                   onChange={this.handleLevelChange} range={[levels[levelId].start,levels[levelId].end]}
-                                   branches={levels[levelId].branches}/>
+                        { Object.keys(intros).map((timeRangeId,_) =>
+                            <div>
+                                <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
+                                           intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                                <Button name="intros" bsStyle="primary" id={timeRangeId}
+                                        onClick={this.deleteSlide}>
+                                        Delete Slide
+                                </Button>
+                            </div>
                         )}
                     </div>
-                    <Collapsible trigger="Credits">
+                </Collapsible>
+                <div>
+                    { Object.keys(levels).map((levelId,_) =>
+                        <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
+                               onChange={this.handleLevelChange}
+                               range={[levels[levelId].start, levels[levelId].end]}
+                               branches={levels[levelId].branches}/>
+                    )}
+                </div>
+                <Collapsible trigger="Credits">
                     <Button name="credits" bsStyle="primary" onClick={this.addSlide}>Add Credit Slide</Button>
-                    <div> 
+                    <br/>
+                    <div>
                         { Object.keys(credits).map((timeRangeId,_) =>
-                            <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
-                                       credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                            <div>
+                                <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
+                                           credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                                <Button name="credits" bsStyle="primary" id={timeRangeId}
+                                        onClick={this.deleteSlide}>
+                                        Delete Slide
+                                </Button>
+                            </div>
                         )}
                     </div>
                 </Collapsible>
