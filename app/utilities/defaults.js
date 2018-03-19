@@ -1,5 +1,5 @@
 export const defaultValues = {
-    time: "00:00.00",
+    time: "00:00.01",
     enabled: true,
     video: "src/main/resources/video/film_with_credits.m4v",
     audio: "src/main/resources/audio/audio.wav"

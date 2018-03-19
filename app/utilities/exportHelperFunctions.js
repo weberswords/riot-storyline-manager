@@ -1,7 +1,8 @@
 const convertToMilliseconds = (value, numFrames) => {
     const valuesArray = value.split(".");
     const numMillisecondsPerFrame = 1000/Number(numFrames);
-    const milliseconds = ("000" + Math.floor(Number(valuesArray[1])*numMillisecondsPerFrame)).slice(-3);
+    const frame = Number(valuesArray[1])-1; // convert to a 0-indexed format
+    const milliseconds = ("000" + Math.round(frame*numMillisecondsPerFrame)).slice(-3);
 
     return valuesArray[0] + "." + milliseconds;
 }
@@ -9,6 +10,10 @@ const convertToMilliseconds = (value, numFrames) => {
 const traverseAndConvertToMilliseconds = (state, numFrames) => {
     if( typeof state == "object" ) {
         Object.entries(state).forEach(([key, value]) => {
+
+            state[key] = undefined;
+            state[key.toLowerCase()] = value;
+            
             if (key === "start" || key === "end") {
                 state[key] = convertToMilliseconds(value, numFrames);
             }
@@ -24,6 +29,8 @@ const trimStateAndCopy = (state) => {
 
             if (!state.levels[levelId].branches[emotion].enabled) {
                 state.levels[levelId].branches[emotion] = undefined;
+            } else {
+                state.levels[levelId].branches[emotion].enabled = undefined;
             }
         });
     });
