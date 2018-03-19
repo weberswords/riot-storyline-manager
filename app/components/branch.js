@@ -51,7 +51,6 @@ export default class Branch extends React.Component {
         if (branch.enabled) {
             return (
                 <div>
-        
                     <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange}/>
                     Outcome:&nbsp;
                     <select name="outcome" id="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>

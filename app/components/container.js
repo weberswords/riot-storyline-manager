@@ -5,59 +5,21 @@ import Level from './level.js';
 import TimeRange from './timeRange.js';
 import Collapsible from 'react-collapsible';
 
+import { convertToMillisecondsAndTrimState } from '../utilities/exportHelperFunctions'
+import { defaultValues, createDefaultLevelsObject } from '../utilities/defaults';
+
 import styles from '../style/index.css';
 
 let Button = require('react-bootstrap').Button;
 let FileSaver = require('file-saver');
-
-const defaults = {
-    time: "00:00.00",
-    enabled: true,
-    video: "src/main/resources/video/film_with_credits.m4v",
-    audio: "src/main/resources/audio/audio.wav"
-}
-
-const createDefaultBranch = () => {
-    return {
-        start: defaults.time,
-        end: defaults.time,
-        enabled: defaults.enabled,
-        outcome: null
-    };
-}
-
-const createDefaultBranchesObject = () => {
-    const emotions = ["Anger", "Fear", "Calm", "Disgust", "Contempt", "Surprise"];
-    
-    let branches = {}
-    emotions.forEach((emotion) => branches[emotion] = createDefaultBranch());
-    return branches;
-}
-
-const createDefaultLevelsObject = (numLevels) => {
-    const populatedLevels = {};
-
-    for (let i = 1; i <= numLevels; i++) {
-        const levelId = "level" + i;
-        
-        populatedLevels[levelId] =  {
-            index: i,
-            start: defaults.time,
-            end: defaults.time,
-            branches: createDefaultBranchesObject()
-        };
-    }
-    return populatedLevels;
-}
-
 
 export default class Container extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             media: {
-                video: defaults.video,
-                audio: defaults.audio
+                video: defaultValues.video,
+                audio: defaultValues.audio
             },
             intros: {},
             credits: {},
@@ -70,11 +32,13 @@ export default class Container extends React.Component {
 
         // SLIDE CHANGES
         this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
-
-        // OTHER THINGS
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.trimStateAndCopyForExport = this.trimStateAndCopyForExport.bind(this);
         this.addSlide = this.addSlide.bind(this);
+
+        // EXPORT
+        this.handleExport = this.handleExport.bind(this);
+
+        //OTHER ANNOYING REACT THING
+        this.copyAllOfState = this.copyAllOfState.bind(this);
     }
 
     handleMediaInputChange(event) {
@@ -123,8 +87,8 @@ export default class Container extends React.Component {
         const timeRangeId = Object.keys(slidesCopy).length;
 
         slidesCopy[timeRangeId] = {
-            start: defaults.time,
-            end: defaults.time
+            start: defaultValues.time,
+            end: defaultValues.time
         };
 
         this.setState({
@@ -132,29 +96,21 @@ export default class Container extends React.Component {
         });
     }
 
-    trimStateAndCopyForExport() {
-        let updatedLevels = Object.assign({}, this.state.levels);
-
-        Object.keys(updatedLevels).map( function(levelId,_) {
-
-            Object.keys(updatedLevels[levelId].branches).map( function(emotion,_) {
-
-                if (!updatedLevels[levelId].branches[emotion].enabled) {
-                    delete updatedLevels[levelId].branches[emotion];
-                }
-
-            });
-
-        });
-
-        let stateCopy = Object.assign({}, this.state);
-        stateCopy.levels = updatedLevels;
-
-        return stateCopy;
+    copyAllOfState() {
+        return {
+            media: Object.assign({}, this.state.media),
+            intros: Object.assign({}, this.state.intros),
+            credits: Object.assign({}, this.state.credits),
+            levels: Object.assign({}, this.state.levels)
+        }
     }
 
-    handleSubmit(event) {
-        let stateCopy = this.trimStateAndCopyForExport();
+    handleExport(event) {
+        let stateCopy = this.copyAllOfState();
+        convertToMillisecondsAndTrimState(stateCopy, this.props.numFrames);
+
+        console.log(this.state);
+
         event.preventDefault();
 
         let configJSON = JSON.stringify(stateCopy, null, 2);
@@ -169,39 +125,35 @@ export default class Container extends React.Component {
 
         return (
             <div id="container">
-                <form onSubmit={this.handleSubmit}>
-                    <Collapsible trigger="Intro">
-                        <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
-                        <br/>
-                        <br/>
-                        <div> 
-                            { Object.keys(intros).map((timeRangeId,_) =>
-                                <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
-                                           intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
-                            )}
-                        </div>
-                        </Collapsible>
-                        <div>
-                            { Object.keys(levels).map((levelId,_) =>
-                                <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
-                                       onChange={this.handleLevelChange} range={[levels[levelId].start,levels[levelId].end]}
-                                       branches={levels[levelId].branches}/>
-                            )}
-                        </div>
-                        <Collapsible trigger="Credits">
-                        <Button name="credits" bsStyle="primary" onClick={this.addSlide}>Add Credit Slide</Button>
-                        <br/>
-                        <br/>
-                        <div> 
-                            { Object.keys(credits).map((timeRangeId,_) =>
-                                <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
-                                           credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
-                            )}
-                        </div>
-                    </Collapsible>
+                <Collapsible trigger="Intro">
+                    <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
                     <br/>
-                    <Button type="submit" name="export" bsStyle="primary">Export</Button>
-                </form>
+                    <br/>
+                    <div> 
+                        { Object.keys(intros).map((timeRangeId,_) =>
+                            <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
+                                       intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                        )}
+                    </div>
+                    </Collapsible>
+                    <div>
+                        { Object.keys(levels).map((levelId,_) =>
+                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
+                                   onChange={this.handleLevelChange} range={[levels[levelId].start,levels[levelId].end]}
+                                   branches={levels[levelId].branches}/>
+                        )}
+                    </div>
+                    <Collapsible trigger="Credits">
+                    <Button name="credits" bsStyle="primary" onClick={this.addSlide}>Add Credit Slide</Button>
+                    <div> 
+                        { Object.keys(credits).map((timeRangeId,_) =>
+                            <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
+                                       credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                        )}
+                    </div>
+                </Collapsible>
+                <br/>
+                <Button onClick={this.handleExport} id="exportButton" name="export" bsStyle="primary">Export</Button>
             </div>
         );
     }
