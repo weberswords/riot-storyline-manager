@@ -5,7 +5,6 @@ import Level from './level.js';
 import TimeRange from './timeRange.js';
 import Collapsible from 'react-collapsible';
 
-
 import { convertToMillisecondsAndTrimState } from '../utilities/exportHelperFunctions'
 import { defaultValues, createDefaultLevelsObject } from '../utilities/defaults';
 
@@ -25,7 +24,7 @@ export default class Container extends React.Component {
             intros: {},
             credits: {},
             levels: createDefaultLevelsObject(this.props.numLevels)
-        }
+        };
 
         // OTHER CHANGES
         this.handleMediaInputChange = this.handleMediaInputChange.bind(this);
@@ -35,7 +34,6 @@ export default class Container extends React.Component {
         this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
         this.addSlide = this.addSlide.bind(this);
         this.deleteSlide = this.deleteSlide.bind(this);
-
 
         // EXPORT
         this.handleExport = this.handleExport.bind(this);
@@ -81,7 +79,7 @@ export default class Container extends React.Component {
     }
 
     addSlide(event) {
-        let stateType = event.target.name; // credits or intros
+        const stateType = event.target.name; // credits or intros
         let slidesCopy = JSON.parse(JSON.stringify(this.state[stateType]));
 
         const timeRangeId = Object.keys(slidesCopy).length;
@@ -96,19 +94,6 @@ export default class Container extends React.Component {
         });
     }
 
-    handleExport(event) {
-        let stateCopy = JSON.parse(JSON.stringify(this.state));
-        convertToMillisecondsAndTrimState(stateCopy, this.props.numFrames);
-
-        console.log(this.state);
-
-                event.preventDefault();
-
-                let configJSON = JSON.stringify(stateCopy, null, 2);
-                let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
-                FileSaver.saveAs(blob, "config.json");
-    }
-
     deleteSlide(event) {
         const stateType = event.target.name; // credits or intros
         const key = event.target.id;
@@ -121,6 +106,17 @@ export default class Container extends React.Component {
         });
     }
 
+    handleExport(event) {
+        let stateCopy = JSON.parse(JSON.stringify(this.state));
+        convertToMillisecondsAndTrimState(stateCopy, this.props.numFrames);
+
+        event.preventDefault();
+
+        let configJSON = JSON.stringify(stateCopy, null, 2);
+        let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
+        FileSaver.saveAs(blob, "config.json");
+    }
+
     render() {
         const levels = this.state.levels;
         const intros = this.state.intros;
@@ -128,47 +124,51 @@ export default class Container extends React.Component {
 
         return (
             <div id="container">
-                    <Collapsible trigger="Intro">
-                        <Button name="intros" bsStyle="primary" onClick={this.addSlide}>Add Intro Slide</Button>
-                        <br/>
-                        <div> 
-                            { Object.keys(intros).map((timeRangeId,_) =>
-                                <div>
-                                    <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
-                                               intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
-                                    <Button name="intros" bsStyle="primary" id={timeRangeId}
-                                    onClick={this.deleteSlide}>
-                                        Delete Slide
-                                    </Button>
-                                </div>
-                            )}
-                        </div>
-                        </Collapsible>
-                        <div>
-                            { Object.keys(levels).map((levelId,_) =>
-                                <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
-                                       onChange={this.handleLevelChange}
-                                       range={[levels[levelId].start, levels[levelId].end]}
-                                       branches={levels[levelId].branches}/>
-                            )}
-                        </div>
-                        <Collapsible trigger="Credits">
-                        <Button name="credits" bsStyle="primary" onClick={this.addSlide}>Add Credit Slide</Button>
-                        <br/>
-                        <div>
-                            { Object.keys(credits).map((timeRangeId,_) =>
-                                <div>
-                                    <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
-                                               credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
-                                    <Button name="credits" bsStyle="primary" id={timeRangeId}
+                <Collapsible trigger="Intro">
+                    <Button name="intros" bsStyle="primary" onClick={this.addSlide}>
+                        Add Intro Slide
+                    </Button>
+                    <br/>
+                    <div> 
+                        { Object.keys(intros).map((timeRangeId,_) =>
+                            <div>
+                                <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
+                                           intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                                <Button name="intros" bsStyle="primary" id={timeRangeId}
                                         onClick={this.deleteSlide}>
-                                        Delete Slide
-                                    </Button>
-                                </div>
+                                    Delete Slide
+                                </Button>
+                            </div>
                         )}
                     </div>
                 </Collapsible>
-                <br/>
+                    <div>
+                        { Object.keys(levels).map((levelId,_) =>
+                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
+                                   onChange={this.handleLevelChange}
+                                   range={[levels[levelId].start, levels[levelId].end]}
+                                   branches={levels[levelId].branches}/>
+                        )}
+                    </div>
+                    <Collapsible trigger="Credits">
+                    <Button name="credits" bsStyle="primary" onClick={this.addSlide}>
+                        Add Credit Slide
+                    </Button>
+                    <br/>
+                    <div>
+                        { Object.keys(credits).map((timeRangeId,_) =>
+                            <div>
+                                <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
+                                           credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
+                                <Button name="credits" bsStyle="primary" id={timeRangeId}
+                                    onClick={this.deleteSlide}>
+                                    Delete Slide
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                </Collapsible>
+                <branches/>
                 <Button onClick={this.handleExport} id="exportButton" name="export" bsStyle="primary">Export</Button>
             </div>
         );
