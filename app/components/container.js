@@ -190,6 +190,8 @@ export default class Container extends React.Component {
                         </div>
                         <Collapsible trigger="Credits">
                         <Button name="credits" bsStyle="primary" onClick={this.addSlide}>Add Credit Slide</Button>
+                        <br/>
+                        <br/>
                         <div> 
                             { Object.keys(credits).map((timeRangeId,_) =>
                                 <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
