@@ -5,6 +5,7 @@ import Level from './level.js';
 import TimeRange from './timeRange.js';
 import Collapsible from 'react-collapsible';
 
+
 import { convertToMillisecondsAndTrimState } from '../utilities/exportHelperFunctions'
 import { defaultValues, createDefaultLevelsObject } from '../utilities/defaults';
 
@@ -36,9 +37,6 @@ export default class Container extends React.Component {
 
         // EXPORT
         this.handleExport = this.handleExport.bind(this);
-
-        //OTHER ANNOYING REACT THING
-        this.copyAllOfState = this.copyAllOfState.bind(this);
     }
 
     handleMediaInputChange(event) {
@@ -96,17 +94,8 @@ export default class Container extends React.Component {
         });
     }
 
-    copyAllOfState() {
-        return {
-            media: Object.assign({}, this.state.media),
-            intros: Object.assign({}, this.state.intros),
-            credits: Object.assign({}, this.state.credits),
-            levels: Object.assign({}, this.state.levels)
-        }
-    }
-
     handleExport(event) {
-        let stateCopy = this.copyAllOfState();
+        let stateCopy = JSON.parse(JSON.stringify(this.state));
         convertToMillisecondsAndTrimState(stateCopy, this.props.numFrames);
 
         console.log(this.state);

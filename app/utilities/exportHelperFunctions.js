@@ -23,11 +23,9 @@ const trimStateAndCopy = (state) => {
         Object.keys(state.levels[levelId].branches).map( function(emotion,_) {
 
             if (!state.levels[levelId].branches[emotion].enabled) {
-                delete state.levels[levelId].branches[emotion];
+                state.levels[levelId].branches[emotion] = undefined;
             }
-
         });
-
     });
 }
 
