@@ -1,3 +1,8 @@
+:root {
+    --main-color:#284a46;
+    --hover-color: #52706c;
+}
+
 body {
 	font-family: sans-serif;
 }
@@ -8,10 +13,14 @@ h1 {
 }
 
 .btn-primary {
-    background-color: #4169E1;
-    border-color: #4169E1;
-    border-radius: 0;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
     box-shadow: 1px 1px 1px grey;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--hover-color) !important;
+    border-color: var(--hover-color) !important;
 }
 
 #app {
@@ -31,11 +40,15 @@ input#timeRange {
 }
 
 select#outcome {
-    background-color: #4169E1;
+    background-color: var(--main-color);
     border-radius: 5px;
     color: #fff;
     height: 30px;
     margin-top: 5px;
+}
+
+select#outcome:hover {
+    background-color: var(--hover-color);
 }
 
 div#branch {
@@ -52,7 +65,11 @@ div#timeRangeDiv {
 
 /* start of collapsible*/
 .Collapsible {
-  background-color: #4169E1;
+  background-color: var(--main-color);
+}
+
+.Collapsible:hover {
+  background-color: var(--hover-color);
 }
 
 .Collapsible__contentInner {
@@ -81,6 +98,8 @@ div#timeRangeDiv {
   border: 1px solid white;
   padding: 10px;
   color: white;
+  border-collapse: separate;
+  border-radius: 0.25 rem;
 
   &:after {
     font-family: 'FontAwesome';
@@ -102,15 +121,6 @@ div#timeRangeDiv {
     opacity: 0.5;
     background-color: grey;
   }
-}
-
-.CustomTriggerCSS {
-  background-color: lightcoral;
-  transition: background-color 200ms ease;
-}
-
-.CustomTriggerCSS--open {
-  background-color: darkslateblue;
 }
 
 .Collapsible__custom-sibling {
