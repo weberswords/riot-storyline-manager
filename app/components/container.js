@@ -147,16 +147,16 @@ export default class Container extends React.Component {
                     <div> 
                         { Object.keys(intros).map((timeRangeId,_) =>
                             <div id="deleteSlide1">
-                                <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
-                                           intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}
-                                            numFrames={this.props.numFrames}/>
                                 <div id="deleteButton1">
                                     &nbsp;
                                     <Button name="intros" bsStyle="primary" id={timeRangeId}
                                         onClick={this.deleteSlide}>
-                                        X
+                                        &times;
                                     </Button>
-                                </div>
+                                </div>                            
+                                <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
+                                           intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}
+                                            numFrames={this.props.numFrames}/>
                             </div>
                         )}
                     </div>
@@ -178,16 +178,16 @@ export default class Container extends React.Component {
                     <div>
                         { Object.keys(credits).map((timeRangeId,_) =>
                             <div id="deleteSlide2">
-                                <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
-                                           credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}
-                                           numFrames={this.props.numFrames}/>
                                 <div id="deleteButton2">
                                     &nbsp;
                                     <Button name="credits" bsStyle="primary" id={timeRangeId}
                                         onClick={this.deleteSlide}>
-                                        X
+                                        &times;
                                     </Button>
                                 </div>
+                                <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
+                                           credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}
+                                           numFrames={this.props.numFrames}/>
                             </div>
                         )}
                     </div>
