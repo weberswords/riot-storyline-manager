@@ -26,14 +26,14 @@ export const createDefaultLevelsObject = (numLevels) => {
     const populatedLevels = {};
 
     for (let i = 1; i <= numLevels; i++) {
-        const levelId = "level" + i;
-        
-        populatedLevels[levelId] =  {
-            index: i,
+        populatedLevels[i] =  {
+            level: i,
             start: defaultValues.time,
             end: defaultValues.time,
             branches: createDefaultBranchesObject()
         };
     }
+
+    console.log(populatedLevels);
     return populatedLevels;
 }

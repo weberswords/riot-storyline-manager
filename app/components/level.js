@@ -13,9 +13,8 @@ export default class Level extends React.Component {
     }
 
     handleTimeRangeChange(name, value) {
-        const levelId = "level" + this.props.levelIndex;
 
-        this.props.onChange(levelId, name, value);
+        this.props.onChange(this.props.levelIndex, name, value);
     }
 
     handleBranchChange(emotion, name, value) {
@@ -29,18 +28,16 @@ export default class Level extends React.Component {
             branches[emotion][name] = value;
         }
 
-        const levelId = "level" + this.props.levelIndex;
-        this.props.onChange(levelId, "branches", branches);
+        this.props.onChange(this.props.levelIndex, "branches", branches);
     }
 
     render() {
         const levelIndex = this.props.levelIndex;
-        const levelId = "level" + levelIndex;
         const branches = this.props.branches;
         const triggerName = "Level " + levelIndex;
 
         return (
-                <div className="level" id={levelId}>
+                <div className="level" id={levelIndex}>
                     <Collapsible trigger={triggerName}>
                         <div className="content">
                             <TimeRange name="range" range={this.props.range} onChange={this.handleTimeRangeChange} numFrames={this.props.numFrames}/>

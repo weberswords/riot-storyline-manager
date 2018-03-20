@@ -62,15 +62,15 @@ export default class Container extends React.Component {
         });
     }
 
-    handleLevelChange(levelId, name, value) {
+    handleLevelChange(levelIndex, name, value) {
         let levelsCopy = JSON.parse(JSON.stringify(this.state.levels));
 
         if (name === "range") {
-            levelsCopy[levelId].start = value[0];
-            levelsCopy[levelId].end = value[1];
+            levelsCopy[levelIndex].start = value[0];
+            levelsCopy[levelIndex].end = value[1];
         }
         else {
-            levelsCopy[levelId][name] = value;
+            levelsCopy[levelIndex][name] = value;
         }
 
         this.setState({
@@ -163,7 +163,7 @@ export default class Container extends React.Component {
                 </Collapsible>
                     <div>
                         { Object.keys(levels).map((levelId,_) =>
-                            <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
+                            <Level levelIndex={levelId} numLevels={this.props.numLevels}
                                    onChange={this.handleLevelChange}
                                    range={[levels[levelId].start, levels[levelId].end]}
                                    branches={levels[levelId].branches}

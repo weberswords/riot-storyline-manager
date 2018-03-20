@@ -23,17 +23,32 @@ const traverseAndConvertToMilliseconds = (state, numFrames) => {
 }
 
 const trimStateAndCopy = (state) => {
-    Object.keys(state.levels).map( function(levelId,_) {
+    let levels = state.levels;
 
-        Object.keys(state.levels[levelId].branches).map( function(emotion,_) {
+    Object.keys(levels).map( function(levelId,_) {
+
+        Object.keys(levels[levelId].branches).map( function(emotion,_) {
             
-            if (!state.levels[levelId].branches[emotion].enabled) {
-                state.levels[levelId].branches[emotion] = undefined;
+            if (!levels[levelId].branches[emotion].enabled) {
+                levels[levelId].branches[emotion] = undefined;
             } else {
-                state.levels[levelId].branches[emotion].enabled = undefined;
+                levels[levelId].branches[emotion].enabled = undefined;
             }
         });
     });
+
+
+    state.levels = arrayifyLevelsObject(levels);
+}
+
+const arrayifyLevelsObject = (levels) => {
+    let levelsArray = new Array(Object.keys(levels).length);
+
+    Object.keys(levels).map((levelIndex,_) => {
+        levelsArray[levelIndex-1] = levels[levelIndex];
+    });
+
+    return levelsArray;
 }
 
 export const convertToMillisecondsAndTrimState = (state, numFrames) => {
