@@ -1,6 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 const validFormat = (range) => {
 	const regex = /^[0-9]{2,2}:[0-9]{2,2}.[0-9]{2,2}/;
 	return regex.test(range[0]) && regex.test(range[1]);
