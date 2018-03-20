@@ -34,6 +34,5 @@ export const createDefaultLevelsObject = (numLevels) => {
         };
     }
 
-    console.log(populatedLevels);
     return populatedLevels;
 }

@@ -83,14 +83,9 @@ export default class Container extends React.Component {
         let slidesCopy = JSON.parse(JSON.stringify(this.state[stateType]));
 
         const stateTypes = this.state[stateType];
-        let timeRangeId = null;
-
-        if (Object.keys(stateTypes).length < 1) {
-            timeRangeId = -1;
-        }
-        else {
-            timeRangeId = Object.keys(stateTypes).reduce((a, b) => stateTypes[a] > stateTypes[b] ? a : b);
-        }
+        const timeRangeId = (Object.keys(stateTypes).length < 1) 
+                            ? -1
+                            : Object.keys(stateTypes).reduce((a, b) => stateTypes[a] > stateTypes[b] ? a : b);
 
         slidesCopy[parseInt(timeRangeId) + 1] = {
             start: defaultValues.time,

@@ -26,7 +26,6 @@ export default class Branch extends React.Component {
     }
 
     getOtherLevelIndices() {
-        console.log(this.props.parentIndex);
         return Array(this.props.numLevels+1).fill()
                                             .map((_, i) => i === 0 ? "Credits" : "Level " + i)
                                             .filter((_,index) => index !== Number(this.props.parentIndex));

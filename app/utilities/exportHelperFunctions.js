@@ -22,7 +22,7 @@ const traverseAndConvertToMilliseconds = (state, numFrames) => {
     }
 }
 
-const trimStateAndCopy = (state) => {
+const trimStateAndArrayify = (state) => {
     let levels = state.levels;
 
     Object.keys(levels).map( function(levelId,_) {
@@ -36,22 +36,34 @@ const trimStateAndCopy = (state) => {
             }
         });
     });
-
-
     state.levels = arrayifyLevelsObject(levels);
+    state.intros = arrayifySlidesObject(state.intros, "intro");
+    state.credits = arrayifySlidesObject(state.credits, "credit");
 }
 
 const arrayifyLevelsObject = (levels) => {
     let levelsArray = new Array(Object.keys(levels).length);
-
     Object.keys(levels).map((levelIndex,_) => {
         levelsArray[levelIndex-1] = levels[levelIndex];
     });
-
     return levelsArray;
 }
 
+const arrayifySlidesObject = (slides, slideType) => {
+    const slideKeys = Object.keys(slides).sort();
+    let slideArray = [];
+    for (let i=0; i<slideKeys.length;i++) {
+        const slide = slides[slideKeys[i]];
+        slideArray.push({
+            [slideType]: slideArray.length,
+            start: slide.start,
+            end: slide.end
+        });
+    }
+    return slideArray;
+}
+
 export const convertToMillisecondsAndTrimState = (state, numFrames) => {
-    trimStateAndCopy(state);
+    trimStateAndArrayify(state);
     traverseAndConvertToMilliseconds(state, numFrames);
 }
