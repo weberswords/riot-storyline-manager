@@ -148,10 +148,16 @@ export default class Container extends React.Component {
                         { Object.keys(intros).map((timeRangeId,_) =>
                             <div id="deleteSlide1">
                                 <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
+<<<<<<< HEAD
                                            intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
                                 <div id="deleteButton1">
                                     &nbsp;
                                     <Button name="intros" bsStyle="primary" id={timeRangeId}
+=======
+                                           intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}
+                                           numFrames={this.props.numFrames}/>
+                                <Button name="intros" bsStyle="primary" id={timeRangeId}
+>>>>>>> added format and number of frames validation for time range components - MR
                                         onClick={this.deleteSlide}>
                                         X
                                     </Button>
@@ -165,7 +171,8 @@ export default class Container extends React.Component {
                             <Level levelIndex={levels[levelId].index} numLevels={this.props.numLevels}
                                    onChange={this.handleLevelChange}
                                    range={[levels[levelId].start, levels[levelId].end]}
-                                   branches={levels[levelId].branches}/>
+                                   branches={levels[levelId].branches}
+                                   numFrames={this.props.numFrames}/>
                         )}
                     </div>
                     <Collapsible trigger="Credits">
@@ -177,6 +184,7 @@ export default class Container extends React.Component {
                         { Object.keys(credits).map((timeRangeId,_) =>
                             <div id="deleteSlide2">
                                 <TimeRange name="credits" id={timeRangeId} range={[credits[timeRangeId].start,
+<<<<<<< HEAD
                                            credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}/>
                                 <div id="deleteButton2">
                                     &nbsp;
@@ -185,6 +193,14 @@ export default class Container extends React.Component {
                                         X
                                     </Button>
                                 </div>
+=======
+                                           credits[timeRangeId].end]} onChange={this.handleTimeRangeChange}
+                                           numFrames={this.props.numFrames}/>
+                                <Button name="credits" bsStyle="primary" id={timeRangeId}
+                                    onClick={this.deleteSlide}>
+                                    Delete Slide
+                                </Button>
+>>>>>>> added format and number of frames validation for time range components - MR
                             </div>
                         )}
                     </div>

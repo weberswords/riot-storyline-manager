@@ -42,8 +42,13 @@ export default class Branch extends React.Component {
         if (branch.enabled) {
             return (
                 <div>
+<<<<<<< HEAD
                     <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange}/>
                     &nbsp;Outcome:&nbsp;
+=======
+                    <TimeRange name="range" range={[branch.start, branch.end]} onChange={this.handleTimeRangeChange} numFrames={this.props.numFrames}/>
+                    Outcome:&nbsp;
+>>>>>>> added format and number of frames validation for time range components - MR
                     <select name="outcome" id="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
                         <option value="0" selected="selected">Credits</option>
                         { otherLevelIndices.map((i) => <option value={i}> {this.processOutcomeListText(i)}</option>) }

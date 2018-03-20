@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import { FormGroup, FormControl, HelpBlock, ControlLabel } from 'react-bootstrap';
+
+import { validateRangeInput } from '../utilities/validators.js';
+
 import styles from '../style/index.css';
 
 export default class TimeRange extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.handleInputChange = this.handleInputChange.bind(this);
+
+		// VALIDATION
+		this.validateInput = this.validateInput.bind(this);
 	}
 
 	handleInputChange(event) {
@@ -20,8 +25,11 @@ export default class TimeRange extends React.Component {
 		}
 	}
 
-	render() {
+	validateInput() {
+		return validateRangeInput(this.props.range, this.props.numFrames);
+	}
 
+	render() {
 		return (
 			<div id="timeRangeDiv">
 				<label> &nbsp; Start Time: &nbsp;</label>
@@ -31,6 +39,10 @@ export default class TimeRange extends React.Component {
                 <label> &nbsp; End Time: &nbsp;</label>
                 <input name="end" id="timeRange" type="text" placeholder="00:00.00" value={this.props.range[1]}
                        onChange={this.handleInputChange}/>
+                       
+                <span id="formatvalidFormatator" style={this.validateInput()}>  
+                	&nbsp; Input must be in this valid format: MM:SS.FF, and frame must between 1 and {this.props.numFrames} 
+                </span>
 			</div>
 		);
 	}
