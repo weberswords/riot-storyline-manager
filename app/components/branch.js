@@ -26,13 +26,10 @@ export default class Branch extends React.Component {
     }
 
     getOtherLevelIndices() {
-        return Array(this.props.numLevels).fill()
-                                          .map((_, i) => i + 1)
-                                          .filter(index => index !== this.props.parentIndex);
-    }
-
-    processOutcomeListText(outcomeNumber) {
-        return "Level " + outcomeNumber;
+        console.log(this.props.parentIndex);
+        return Array(this.props.numLevels+1).fill()
+                                            .map((_, i) => i === 0 ? "Credits" : "Level " + i)
+                                            .filter((_,index) => index !== Number(this.props.parentIndex));
     }
 
     branch() {
@@ -46,8 +43,7 @@ export default class Branch extends React.Component {
                                onChange={this.handleTimeRangeChange} numFrames={this.props.numFrames}/>
                     &nbsp;Outcome:&nbsp;
                     <select name="outcome" id="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
-                        <option value="0" selected="selected">Credits</option>
-                        { otherLevelIndices.map((i) => <option value={i}> {this.processOutcomeListText(i)}</option>) }
+                        { otherLevelIndices.map((outcome,i) => <option value={i}>{outcome}</option>) }
                     </select>
                 </div>
             );

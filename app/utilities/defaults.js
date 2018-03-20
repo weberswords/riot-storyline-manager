@@ -10,7 +10,7 @@ const createDefaultBranch = () => {
         start: defaultValues.time,
         end: defaultValues.time,
         enabled: defaultValues.enabled,
-        outcome: "Credits"
+        outcome: "0"
     };
 }
 
