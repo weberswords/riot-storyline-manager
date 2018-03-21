@@ -1,19 +1,33 @@
-const validFormat = (range) => {
+const isValid = (value, numFrames) => {
+	return (validFormat(value) && validNumFrames(value, numFrames));
+}
+
+const validFormat = (value) => {
 	const regex = /^[0-9]{2,2}:[0-9]{2,2}.[0-9]{2,2}/;
-	return regex.test(range[0]) && regex.test(range[1]);
+	return regex.test(value);
 }
 
-const validNumFrames = (range, numFrames) => {
-	const startFrames = Number(range[0].split(".")[1]);
-	const endFrames = Number(range[1].split(".")[1]);
-
-	return ((startFrames >=1 && endFrames >= 1) &&
-			(startFrames <= numFrames && endFrames <= numFrames));
+const validNumFrames = (value, numFrames) => {
+	const frames = Number(value.split(".")[1]);
+	return (frames >=1  && frames <= numFrames);
 }
 
-export const validateRangeInput = (range, numFrames) => {
-	if (validFormat(range) && validNumFrames(range, numFrames)) {
-		return({display: "none"});
-	}
-	return({display: "inline",color: "red"});
+export const isValidInput = (range, numFrames) => {
+	return isValid(range[0], numFrames) && isValid(range[1], numFrames);
 }
+
+export const validateAllInputs = (state, numFrames) => {
+	let valid = true;
+	let traverser = (obj) => {
+	  if (typeof obj == "object") {
+        Object.entries(obj).forEach(([key, value]) => {
+            if ((key === "start" || key === "end") && !isValid(value, numFrames)) {
+                valid = false;
+            }
+            traverser(value);
+        });
+	  }
+	};
+	traverser(state);
+	return valid;
+};

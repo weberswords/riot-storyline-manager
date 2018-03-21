@@ -5,6 +5,7 @@ import Level from './level.js';
 import TimeRange from './timeRange.js';
 import Collapsible from 'react-collapsible';
 
+import { isValidInput, validateAllInputs } from '../utilities/validators.js';
 import { convertToMillisecondsAndTrimState } from '../utilities/exportHelperFunctions'
 import { defaultValues, createDefaultLevelsObject } from '../utilities/defaults';
 
@@ -23,7 +24,8 @@ export default class Container extends React.Component {
             },
             intros: {},
             credits: {},
-            levels: createDefaultLevelsObject(this.props.numLevels)
+            levels: createDefaultLevelsObject(this.props.numLevels),
+            displayValue: "none"
         };
 
         // OTHER CHANGES
@@ -118,13 +120,21 @@ export default class Container extends React.Component {
 
     handleExport(event) {
         let stateCopy = JSON.parse(JSON.stringify(this.state));
-        convertToMillisecondsAndTrimState(stateCopy, this.props.numFrames);
+        const totalValidity = validateAllInputs(stateCopy, this.props.numFrames);
 
-        event.preventDefault();
+        this.setState({
+            displayValue: totalValidity ? "none" : "inline"
+        });
 
-        let configJSON = JSON.stringify(stateCopy, null, 2);
-        let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
-        FileSaver.saveAs(blob, "config.json");
+        if (totalValidity) {
+            convertToMillisecondsAndTrimState(stateCopy, this.props.numFrames);
+
+            event.preventDefault();
+
+            let configJSON = JSON.stringify(stateCopy, null, 2);
+            let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
+            FileSaver.saveAs(blob, "config.json");
+        }
     }
 
     render() {
@@ -189,6 +199,9 @@ export default class Container extends React.Component {
                 </Collapsible>
                 <branches/>
                 <Button onClick={this.handleExport} id="exportButton" name="export" bsStyle="primary">Export</Button>
+                <span id="exportValidator" style={{display: this.state.displayValue, color: "red"}}>  
+                    &nbsp; fix your mistakesssss
+                </span>
             </div>
         );
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
-import { validateRangeInput } from '../utilities/validators.js';
+import { isValidInput } from '../utilities/validators.js';
 
 import styles from '../style/index.css';
 
@@ -26,7 +26,8 @@ export default class TimeRange extends React.Component {
 	}
 
 	validateInput() {
-		return validateRangeInput(this.props.range, this.props.numFrames);
+		return (isValidInput(this.props.range, this.props.numFrames)) ? ({display: "none"})
+																	  : ({display: "inline", color:"red"});
 	}
 
 	render() {

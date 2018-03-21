@@ -36,3 +36,7 @@ export const createDefaultLevelsObject = (numLevels) => {
 
     return populatedLevels;
 }
+
+export const allInputsValid = (state) => {
+    
+}
