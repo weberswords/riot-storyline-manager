@@ -39,6 +39,7 @@ const trimStateAndArrayify = (state) => {
     state.levels = arrayifyLevelsObject(levels);
     state.intros = arrayifySlidesObject(state.intros, "intro");
     state.credits = arrayifySlidesObject(state.credits, "credit");
+    state.displayvalue = undefined;
 }
 
 const arrayifyLevelsObject = (levels) => {
@@ -55,7 +56,7 @@ const arrayifySlidesObject = (slides, slideType) => {
     for (let i=0; i<slideKeys.length;i++) {
         const slide = slides[slideKeys[i]];
         slideArray.push({
-            [slideType]: slideArray.length,
+            [slideType]: slideArray.length+1,
             start: slide.start,
             end: slide.end
         });
