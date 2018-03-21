@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
-import { isValidInput } from '../utilities/validators.js';
+import { isValidInput, endIsLaterThanStart } from '../utilities/validators.js';
 
 import styles from '../style/index.css';
 
@@ -13,6 +13,7 @@ export default class TimeRange extends React.Component {
 
 		// VALIDATION
 		this.validateInput = this.validateInput.bind(this);
+		this.validateEndAndStart = this.validateEndAndStart.bind(this);
 	}
 
 	handleInputChange(event) {
@@ -26,8 +27,14 @@ export default class TimeRange extends React.Component {
 	}
 
 	validateInput() {
-		return (isValidInput(this.props.range, this.props.numFrames)) ? ({display: "none"})
-																	  : ({display: "inline", color:"red"});
+		return (isValidInput(this.props.range, this.props.numFrames))	? ({display: "none"})
+																		: ({display: "inline", color:"red"});
+	}
+
+	validateEndAndStart() {
+		return (!isValidInput(this.props.range, this.props.numFrames) 
+			|| endIsLaterThanStart(this.props.range))   ? ({display: "none"})
+														: ({display: "inline", color:"red"});
 	}
 
 	render() {
@@ -42,7 +49,10 @@ export default class TimeRange extends React.Component {
                        onChange={this.handleInputChange}/>
                        
                 <span id="formatvalidFormatator" style={this.validateInput()}>  
-                	&nbsp; Input must be in this valid format: MM:SS.FF, and frame must between 1 and {this.props.numFrames} 
+                	&nbsp; valid format is MM:SS.FF (with seconds between 0 and 59 and frames between 0 and {this.props.numFrames})
+                </span>
+                <span id="endAndStartValidator" style={this.validateEndAndStart()}>
+                    &nbsp; end time stamp must be after or equal to the start time
                 </span>
 			</div>
 		);
