@@ -26,7 +26,7 @@ export const endIsLaterThanStart = (range) => {
 	return (startMins === endMins 
 			? (startSeconds === endSeconds 
 				? (startFrames === endFrames
-					? true // if they're the same, then return true
+					? true
 					: endFrames > startFrames)
 				: endSeconds > startSeconds)
 			: endMins > startMins);
@@ -43,8 +43,15 @@ export const validateAllInputs = (state, numFrames) => {
 	let traverser = (obj) => {
 	  if (typeof obj == "object") {
         Object.entries(obj).forEach(([key, value]) => {
-            if ((key === "start" || key === "end") && !isValid(value, numFrames)) {
-                valid = false;
+            if (key === "start") {
+            	const startTime = obj.start;
+            	const endTime = obj.end;
+
+            	if (!isValid(startTime, numFrames) 
+            	 || !isValid(endTime, numFrames) 
+            	 || !endIsLaterThanStart([startTime, endTime])) {
+                	valid = false;
+            	}
             }
             traverser(value);
         });

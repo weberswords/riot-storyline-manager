@@ -47,13 +47,14 @@ export default class TimeRange extends React.Component {
                 <label> &nbsp; End Time: &nbsp;</label>
                 <input name="end" id="timeRange" type="text" placeholder="00:00.00" value={this.props.range[1]}
                        onChange={this.handleInputChange}/>
-                       
+
                 <span id="formatvalidFormatator" style={this.validateInput()}>  
                 	&nbsp; valid format is MM:SS.FF (with seconds between 0 and 59 and frames between 0 and {this.props.numFrames})
                 </span>
                 <span id="endAndStartValidator" style={this.validateEndAndStart()}>
-                    &nbsp; end time stamp must be after or equal to the start time
+                    &nbsp; end timestamp must be after (or equal to) start timestamp
                 </span>
+
 			</div>
 		);
 	}
