@@ -5,7 +5,7 @@ const isValid = (value, numFrames) => {
 }
 
 const validFormat = (value) => {
-	const regex = /^[0-9]{2,2}:[0-9]{2,2}.[0-9]{2,2}/;
+	const regex = /^[0-9]{2,2}:[0-9]{2,2}\.[0-9]{2,2}/;
 	return regex.test(value);
 }
 

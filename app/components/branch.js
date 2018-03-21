@@ -25,14 +25,12 @@ export default class Branch extends React.Component {
         this.props.onChange(this.props.emotion, "enabled", !this.props.value.enabled);
     }
 
-    getOtherLevelIndices() {
-        return Array(this.props.numLevels+1).fill()
-                                            .map((_, i) => i === 0 ? "Credits" : "Level " + i)
-                                            .filter((_,index) => index !== Number(this.props.parentIndex));
+    populateOutcomeList() {
+        return Array(this.props.numLevels+1).fill().map((_, i) => i === 0 ? "Credits" : "Level " + i);
     }
 
     branch() {
-        const otherLevelIndices = this.getOtherLevelIndices();
+        const outcomePossibilities = this.populateOutcomeList();
         const branch = this.props.value;
 
         if (branch.enabled) {
@@ -40,7 +38,8 @@ export default class Branch extends React.Component {
                 <div>           
                     &nbsp;Outcome:&nbsp;
                     <select name="outcome" id="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
-                        { otherLevelIndices.map((outcome,i) => <option value={i}>{outcome}</option>) }
+                        { outcomePossibilities.map((outcome,i) => 
+                            i !== Number(this.props.parentIndex) ? <option value={i}>{outcome}</option> : null )}
                     </select>
                     <TimeRange name="range" range={[branch.start, branch.end]} 
                                onChange={this.handleTimeRangeChange} numFrames={this.props.numFrames}/>
