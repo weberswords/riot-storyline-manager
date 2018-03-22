@@ -2,7 +2,7 @@ const convertToMilliseconds = (value, numFrames) => {
     const valuesArray = value.split(".");
     const numMillisecondsPerFrame = 1000/Number(numFrames);
     const frame = Number(valuesArray[1])-1; // convert to a 0-indexed format
-    const milliseconds = ("000" + Math.round(frame*numMillisecondsPerFrame)).slice(-3);
+    const milliseconds = ("000" + Math.ceil(frame*numMillisecondsPerFrame)).slice(-3);
 
     return valuesArray[0] + "." + milliseconds;
 }
