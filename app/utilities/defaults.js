@@ -1,11 +1,4 @@
-export const defaultValues = {
-    time: "00:00.01",
-    enabled: true,
-    video: "src/main/resources/video/film_with_credits.m4v",
-    audio: "src/main/resources/audio/audio.wav"
-}
-
-const createDefaultBranch = () => {
+export const createDefaultBranch = () => {
     return {
         start: defaultValues.time,
         end: defaultValues.time,
@@ -14,7 +7,7 @@ const createDefaultBranch = () => {
     };
 }
 
-const createDefaultBranchesObject = () => {
+export const createDefaultBranchesObject = () => {
     const emotions = ["Anger", "Fear", "Calm", "Disgust", "Contempt", "Surprise"];
     
     let branches = {}
@@ -37,6 +30,9 @@ export const createDefaultLevelsObject = (numLevels) => {
     return populatedLevels;
 }
 
-export const allInputsValid = (state) => {
-    
+export const defaultValues = {
+    time: "00:00.01",
+    enabled: true,
+    video: "src/main/resources/video/film_with_credits.m4v",
+    audio: "src/main/resources/audio/audio.wav"
 }

@@ -5,7 +5,8 @@
   "main": "app/index.js",
   "scripts": {
     "start": "webpack-dev-server --open",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "jest"
   },
   "author": "Sriram Viswanathan",
   "license": "MIT",
@@ -17,14 +18,19 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
+    "enzyme": "^3.3.0",
     "file-loader": "^1.1.11",
+    "jest": "^22.4.3",
     "react": "^16.2.0",
+    "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
     "style-loader": "^0.20.3",

@@ -1,4 +1,8 @@
-const convertToMilliseconds = (value, numFrames) => {
+export const convertToMilliseconds = (value, numFrames) => {
+    if (Number(numFrames) <= 0) {
+        return "number of frames must be a positive integer";
+    }
+
     const valuesArray = value.split(".");
     const numMillisecondsPerFrame = 1000/Number(numFrames);
     const frame = Number(valuesArray[1])-1; // convert to a 0-indexed format
@@ -7,7 +11,7 @@ const convertToMilliseconds = (value, numFrames) => {
     return valuesArray[0] + "." + milliseconds;
 }
 
-const traverseAndConvertToMilliseconds = (state, numFrames) => {
+export const traverseAndConvertToMilliseconds = (state, numFrames) => {
     if( typeof state == "object" ) {
         Object.entries(state).forEach(([key, value]) => {
 
@@ -22,7 +26,7 @@ const traverseAndConvertToMilliseconds = (state, numFrames) => {
     }
 }
 
-const trimStateAndArrayify = (state) => {
+export const trimStateAndArrayify = (state) => {
     let levels = state.levels;
 
     Object.keys(levels).map( function(levelId,_) {
@@ -42,7 +46,7 @@ const trimStateAndArrayify = (state) => {
     state.displayvalue = undefined;
 }
 
-const arrayifyLevelsObject = (levels) => {
+export const arrayifyLevelsObject = (levels) => {
     let levelsArray = new Array(Object.keys(levels).length);
     Object.keys(levels).map((levelIndex,_) => {
         levelsArray[levelIndex-1] = levels[levelIndex];
@@ -50,7 +54,7 @@ const arrayifyLevelsObject = (levels) => {
     return levelsArray;
 }
 
-const arrayifySlidesObject = (slides, slideType) => {
+export const arrayifySlidesObject = (slides, slideType) => {
     const slideKeys = Object.keys(slides).sort();
     let slideArray = [];
     for (let i=0; i<slideKeys.length;i++) {
