@@ -1,6 +1,7 @@
 import { convertToMilliseconds } from '../app/utilities/exportHelperFunctions';
 import { arrayifySlidesObject,arrayifyLevelsObject } from '../app/utilities/exportHelperFunctions';
 import { createDefaultLevelsObject,createDefaultBranchesObject } from '../app/utilities/defaults';
+import { traverseAndConvertToMilliseconds } from '../app/utilities/exportHelperFunctions';
 
 describe('Millisecond Conversions', () => {
 	it('is very beginning of video', () => {
@@ -93,6 +94,50 @@ describe('Arrayifiction',()=> {
 		expect(arrayifyLevelsObject(levels)).toEqual(expectedCreditsArray);
 	});
 });
+
+describe("Traversal", () => {
+	it('should traverse an object and convert timestamps to ms', () => {
+		let objectWithStartsAndEnds = {
+			start: "00:23.23",
+			end: "10:13.01",
+			layer: {
+				start: "00:00.04",
+				end: "00:02.21",
+				layer: {
+					start: "00:00.04",
+					end: "00:02.21",
+					random: true
+				},
+				another: {
+					random: false
+				}
+			}
+		};
+
+		const expectedArray = {
+			start: "00:23.917",
+			end: "10:13.000",
+			layer: {
+				start: "00:00.125",
+				end: "00:02.834",
+				layer: {
+					start: "00:00.125",
+					end: "00:02.834",
+					random: true
+				},
+				another: {
+				random: false
+			}
+		}
+		};
+
+		traverseAndConvertToMilliseconds(objectWithStartsAndEnds, 24);
+		expect(objectWithStartsAndEnds).toEqual(expectedArray);
+	});
+
+});
+
+
 
 
 

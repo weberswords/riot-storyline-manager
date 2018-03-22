@@ -15,7 +15,7 @@ export const traverseAndConvertToMilliseconds = (state, numFrames) => {
     if( typeof state == "object" ) {
         Object.entries(state).forEach(([key, value]) => {
 
-            state[key] = undefined;
+            delete state[key];
             state[key.toLowerCase()] = value;
             
             if (key === "start" || key === "end") {
@@ -34,16 +34,16 @@ export const trimStateAndArrayify = (state) => {
         Object.keys(levels[levelId].branches).map( function(emotion,_) {
             
             if (!levels[levelId].branches[emotion].enabled) {
-                levels[levelId].branches[emotion] = undefined;
+                delete levels[levelId].branches[emotion];
             } else {
-                levels[levelId].branches[emotion].enabled = undefined;
+                delete levels[levelId].branches[emotion].enabled;
             }
         });
     });
     state.levels = arrayifyLevelsObject(levels);
     state.intros = arrayifySlidesObject(state.intros, "intro");
     state.credits = arrayifySlidesObject(state.credits, "credit");
-    state.displayvalue = undefined;
+    delete state.displayvalue;
 }
 
 export const arrayifyLevelsObject = (levels) => {
