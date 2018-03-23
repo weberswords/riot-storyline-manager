@@ -42,8 +42,17 @@ export default class Intro extends React.Component {
 			return(
 				<div id="intro">
 					<form onSubmit={this.handleIntroSubmit}>
-						<label>How many levels? &nbsp;</label><input type="number" min={1} max={20} name="numLevels" value={this.state.numLevels} placeholder={this.state.numLevels} onChange={this.handleInputChange}/><br/>
-						<label>How many frames per second is your video? &nbsp; </label><input type="number" min={1} max={100} name="numFrames" value={this.state.numFrames} placeholder={this.state.numFrames} onChange={this.handleInputChange}/><br/>
+						<label>
+						    How many levels? &nbsp;
+						</label>
+						<input type="number" min={1} max={20} name="numLevels"
+						       value={this.state.numLevels} placeholder={this.state.numLevels}
+						       onChange={this.handleInputChange}/><br/>
+						<label>
+						    How many frames per second is your video? &nbsp;
+						</label>
+						<input type="number" min={1} max={100} name="numFrames" value={this.state.numFrames}
+						       placeholder={this.state.numFrames} onChange={this.handleInputChange}/><br/>
 						<Button bsStyle="primary" type="submit">Start Configuring!</Button>
 					</form>
 				</div>

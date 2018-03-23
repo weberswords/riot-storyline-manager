@@ -39,7 +39,7 @@ export default class Branch extends React.Component {
                     &nbsp;Outcome:&nbsp;
                     <select name="outcome" id="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
                         { outcomePossibilities.map((outcome,i) => 
-                            i !== Number(this.props.parentIndex) ? <option value={i}>{outcome}</option> : null )}
+                            i !== Number(this.props.parentIndex) ? <option value={i}>{outcome}</option> : null)}
                     </select>
                     <TimeRange name="range" range={[branch.start, branch.end]} 
                                onChange={this.handleTimeRangeChange} numFrames={this.props.numFrames}/>

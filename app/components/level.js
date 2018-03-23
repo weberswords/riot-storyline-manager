@@ -40,8 +40,8 @@ export default class Level extends React.Component {
                 <div className="level" id={levelIndex}>
                     <Collapsible trigger={triggerName}>
                         <div className="content">
-                            <TimeRange name="range" range={this.props.range} onChange={this.handleTimeRangeChange} numFrames={this.props.numFrames}/>
-                            
+                            <TimeRange name="range" range={this.props.range} onChange={this.handleTimeRangeChange}
+                                       numFrames={this.props.numFrames}/>
                             { Object.keys(branches).map((key,_) =>
                                 <Branch emotion={key} value={branches[key]} parentIndex={levelIndex}
                                         numLevels={this.props.numLevels} onChange={this.handleBranchChange}
