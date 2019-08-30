@@ -7,9 +7,9 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Go into the repository
-cd riot_ui
+cd riot-storyline-manager
 # Install dependencies
-npm install
+npm ci
 # Run the app
 npm start
 ```

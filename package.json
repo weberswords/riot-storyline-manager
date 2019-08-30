@@ -4,9 +4,10 @@
   "description": "Riot UI to generate configuration XML",
   "main": "app/index.js",
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "start": "webpack-dev-server --open --mode development",
     "build": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "prod": "webpack-dev-server --open --mode production"
   },
   "author": "Sriram Viswanathan",
   "license": "MIT",
@@ -51,10 +52,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emilyw26/storyline-manager.git"
+    "url": "https://github.com/thoughtworksarts/riot-storyline-manager.git"
   },
   "bugs": {
-    "url": "https://github.com/emilyw26/storyline-manager/issues"
+    "url": "https://github.com/thoughtworksarts/riot-storyline-manager/issues"
   },
-  "homepage": "https://github.com/emilyw26/storyline-manager#readme"
+  "homepage": "https://github.com/thoughtworksarts/riot-storyline-manager#readme"
 }
