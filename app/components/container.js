@@ -1,18 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Level from './level.js';
 import TimeRange from './timeRange.js';
 import Collapsible from 'react-collapsible';
 
-import { isValidInput, validateAllInputs } from '../utilities/validators.js';
+import { validateAllInputs } from '../utilities/validators.js';
 import { convertToMillisecondsAndTrimState } from '../utilities/exportHelperFunctions'
 import { defaultValues, createDefaultLevelsObject } from '../utilities/defaults';
-
-import styles from '../style/index.css';
-
-let Button = require('react-bootstrap').Button;
-let FileSaver = require('file-saver');
+import { Button } from 'react-bootstrap';
+import { saveAs } from 'file-saver';
 
 export default class Container extends React.Component {
     constructor(props) {
@@ -133,7 +128,7 @@ export default class Container extends React.Component {
 
             let configJSON = JSON.stringify(stateCopy, null, 2);
             let blob = new Blob([configJSON], {type: "text/plain;charset=utf-8"});
-            FileSaver.saveAs(blob, "config.json");
+            saveAs(blob, "config.json");
         }
     }
 

@@ -1,10 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 import { isValidInput, endIsLaterThanStart } from '../utilities/validators.js';
-
-import styles from '../style/index.css';
 
 export default class TimeRange extends React.Component {
 	constructor(props, context) {

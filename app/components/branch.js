@@ -1,9 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import TimeRange from './timeRange.js';
-
-import styles from '../style/index.css';
 
 export default class Branch extends React.Component {
     constructor(props) {

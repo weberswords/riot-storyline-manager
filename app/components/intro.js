@@ -1,10 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Container from './container.js';
-import styles from '../style/index.css';
-
-let Button = require('react-bootstrap').Button;
+import { Button } from 'react-bootstrap';
 
 export default class Intro extends React.Component {
 	constructor(props) {

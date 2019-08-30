@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Branch from './branch.js';
 import TimeRange from './timeRange.js';
 import Collapsible from 'react-collapsible';
