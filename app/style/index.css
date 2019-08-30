@@ -12,16 +12,17 @@ h1 {
 	text-align: center;
 }
 
-.btn-primary {
+.btn-custom {
     background-color: var(--main-color);
     border-color: var(--main-color);
     box-shadow: 1px 1px 1px grey;
     margin-bottom: 1%;
+    color: white;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-    background-color: var(--hover-color) !important;
-    border-color: var(--hover-color) !important;
+.btn-custom:hover, .btn-custom:focus, .btn-custom:active {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
 }
 
 #app {
@@ -38,32 +39,24 @@ h1 {
 
 #exportButton {
     margin-top: 1%;
-} 
+}
 
-#deleteSlide1 {
+#deleteSlide1, #deleteSlide2 {
     text-align:left;
 }
 
-#deleteSlide2 {
-    text-align:left;
-}
-
-#deleteButton1, #timeRangeDiv {
-    display:inline;
-}
-
-#deleteButton2, #timeRangeDiv {
+#deleteButton1, .deleteButton, #timeRangeDiv {
     display:inline;
 }
 
 input#timeRange {
-    width: 8%;
+    width: 5em;
 }
 
 select#outcome {
     background-color: var(--main-color);
     border-radius: 5px;
-    color: #fff;
+    color: white;
     height: 30px;
     margin-top: 5px;
 }
@@ -86,20 +79,10 @@ div#branch {
 }
 
 .Collapsible__contentInner {
-  padding: 10px;
-  background-color: white;
-  border: 1px solid $lightGrey;
-  border-top: 0;
-
-  p {
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 20px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
+    padding: 10px;
+    background-color: white;
+    border: 1px solid lightGrey;
+    border-top: 0;
 }
 
 .Collapsible__trigger {
@@ -112,28 +95,7 @@ div#branch {
   padding: 10px;
   color: white;
   border-collapse: separate;
-  border-radius: 0.25 rem;
-
-  &:after {
-    font-family: 'FontAwesome';
-    content: '\f107';
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    display: block;
-    transition: transform 300ms;
-  }
-
-  &.is-open {
-    &:after {
-      transform: rotateZ(180deg);
-    }
-  }
-
-  &.is-disabled {
-    opacity: 0.5;
-    background-color: grey;
-  }
+  border-radius: 0.25rem;
 }
 
 .Collapsible__custom-sibling {

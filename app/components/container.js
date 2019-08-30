@@ -140,20 +140,20 @@ export default class Container extends React.Component {
         return (
             <div id="container">
                 <Collapsible trigger="Intro">
-                    <Button name="intros" bsStyle="primary" onClick={this.addSlide}>
+                    <Button name="intros" className="btn-custom" onClick={this.addSlide}>
                         Add Intro Slide
                     </Button>
                     <br/>
-                    <div> 
+                    <div>
                         { Object.keys(intros).map((timeRangeId,_) =>
                             <div id="deleteSlide1">
-                                <div id="deleteButton1">
+                                <div className="deleteButton">
                                     &nbsp;
-                                    <Button name="intros" bsStyle="primary" id={timeRangeId}
+                                    <Button name="intros" className="btn-custom" id={timeRangeId}
                                         onClick={this.deleteSlide}>
                                         &times;
                                     </Button>
-                                </div>                            
+                                </div>
                                 <TimeRange name="intros" id={timeRangeId} range={[intros[timeRangeId].start,
                                            intros[timeRangeId].end]} onChange={this.handleTimeRangeChange}
                                             numFrames={this.props.numFrames}/>
@@ -171,16 +171,16 @@ export default class Container extends React.Component {
                         )}
                     </div>
                     <Collapsible trigger="Credits">
-                    <Button name="credits" bsStyle="primary" onClick={this.addSlide}>
+                    <Button name="credits" className="btn-custom" onClick={this.addSlide}>
                         Add Credit Slide
                     </Button>
                     <br/>
                     <div>
                         { Object.keys(credits).map((timeRangeId,_) =>
                             <div id="deleteSlide2">
-                                <div id="deleteButton2">
+                                <div className="deleteButton">
                                     &nbsp;
-                                    <Button name="credits" bsStyle="primary" id={timeRangeId}
+                                    <Button name="credits" className="btn-custom" id={timeRangeId}
                                         onClick={this.deleteSlide}>
                                         &times;
                                     </Button>
@@ -193,7 +193,7 @@ export default class Container extends React.Component {
                     </div>
                 </Collapsible>
                 <branches/>
-                <Button onClick={this.handleExport} id="exportButton" name="export" bsStyle="primary">Export</Button>
+                <Button onClick={this.handleExport} id="exportButton" name="export" className="btn-custom">Export</Button>
                 <span id="exportValidator" style={{display: this.state.displayValue, color: "red"}}>
                     &nbsp; fix your mistakesssss
                 </span>

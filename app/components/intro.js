@@ -49,14 +49,14 @@ export default class Intro extends React.Component {
 						</label>
 						<input type="number" min={1} max={100} name="numFrames" value={this.state.numFrames}
 						       placeholder={this.state.numFrames} onChange={this.handleInputChange}/><br/>
-						<Button bsStyle="primary" type="submit">Start Configuring!</Button>
+						<Button className="btn-custom" type="submit">Start Configuring!</Button>
 					</form>
 				</div>
             );
 		} else {
 			return(
 				<div>
-					<Button name="goBack" bsStyle="primary" id="backButton" onClick={this.goBack}>Go Back</Button>
+					<Button name="goBack" className="btn-custom" id="backButton" onClick={this.goBack}>Go Back</Button>
 					<Container numLevels={this.state.numLevels} numFrames={this.state.numFrames} />
 				</div>
 			);
