@@ -54,8 +54,8 @@ export default class Intro extends React.Component {
 				</div>
             );
 		} else {
-			return(		
-				<div>		
+			return(
+				<div>
 					<Button name="goBack" bsStyle="primary" id="backButton" onClick={this.goBack}>Go Back</Button>
 					<Container numLevels={this.state.numLevels} numFrames={this.state.numFrames} />
 				</div>

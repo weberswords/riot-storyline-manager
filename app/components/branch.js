@@ -31,13 +31,13 @@ export default class Branch extends React.Component {
 
         if (branch.enabled) {
             return (
-                <div>           
+                <div>
                     &nbsp;Outcome:&nbsp;
                     <select name="outcome" id="outcome" value={branch.outcome} onChange={this.handleBranchInputChange}>
-                        { outcomePossibilities.map((outcome,i) => 
+                        { outcomePossibilities.map((outcome,i) =>
                             i !== Number(this.props.parentIndex) ? <option value={i}>{outcome}</option> : null)}
                     </select>
-                    <TimeRange name="range" range={[branch.start, branch.end]} 
+                    <TimeRange name="range" range={[branch.start, branch.end]}
                                onChange={this.handleTimeRangeChange} numFrames={this.props.numFrames}/>
                 </div>
             );

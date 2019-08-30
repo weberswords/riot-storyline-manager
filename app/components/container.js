@@ -52,7 +52,7 @@ export default class Container extends React.Component {
         slidesCopy[id] = {
             start: value[0],
             end: value[1]
-        }
+        };
 
         this.setState({
             [stateType]: slidesCopy
@@ -80,7 +80,7 @@ export default class Container extends React.Component {
         let slidesCopy = JSON.parse(JSON.stringify(this.state[stateType]));
 
         const stateTypes = this.state[stateType];
-        const timeRangeId = (Object.keys(stateTypes).length < 1) 
+        const timeRangeId = (Object.keys(stateTypes).length < 1)
                             ? -1
                             : Object.keys(stateTypes).reduce((a, b) => stateTypes[a] > stateTypes[b] ? a : b);
 
@@ -194,7 +194,7 @@ export default class Container extends React.Component {
                 </Collapsible>
                 <branches/>
                 <Button onClick={this.handleExport} id="exportButton" name="export" bsStyle="primary">Export</Button>
-                <span id="exportValidator" style={{display: this.state.displayValue, color: "red"}}>  
+                <span id="exportValidator" style={{display: this.state.displayValue, color: "red"}}>
                     &nbsp; fix your mistakesssss
                 </span>
             </div>

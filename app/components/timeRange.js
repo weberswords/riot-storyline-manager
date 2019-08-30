@@ -28,7 +28,7 @@ export default class TimeRange extends React.Component {
 	}
 
 	validateEndAndStart() {
-		return (!isValidInput(this.props.range, this.props.numFrames) 
+		return (!isValidInput(this.props.range, this.props.numFrames)
 			|| endIsLaterThanStart(this.props.range))   ? ({display: "none"})
 														: ({display: "inline", color:"red"});
 	}
@@ -44,7 +44,7 @@ export default class TimeRange extends React.Component {
                 <input name="end" id="timeRange" type="text" placeholder="00:00.00" value={this.props.range[1]}
                        onChange={this.handleInputChange}/>
 
-                <span id="formatvalidFormatator" style={this.validateInput()}>  
+                <span id="formatvalidFormatator" style={this.validateInput()}>
                 	&nbsp; valid format is MM:SS.FF (with seconds between 0 and 59 and frames between 0 and {this.props.numFrames})
                 </span>
                 <span id="endAndStartValidator" style={this.validateEndAndStart()}>
